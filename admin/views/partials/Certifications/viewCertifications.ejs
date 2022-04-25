@@ -1,0 +1,27 @@
+<table id="datatablesSimple">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Issuer</th>
+      <th>IssueDate</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% if(Certifications.length > 0){ %> <%
+      Certifications.forEach(certifications =>{ %>
+      <td><%= certifications.Name %></td>
+      <td><%= certifications.Issuer %></td>
+      <td><%= certifications.IssueDate %></td>
+      <td>
+        <a
+          href="/viewcertifications/<%= certifications._id %>"
+          class="btn btn-outline-danger mx-3"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    <% }) %> <% } %>
+  </tbody>
+</table>

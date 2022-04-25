@@ -1,0 +1,30 @@
+<table id="datatablesSimple">
+  <thead>
+    <tr>
+      <th>Occupation</th>
+      <th>Company</th>
+      <th>Starting Year</th>
+      <th>Ending Year</th>
+      <th>Desc</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% if(Experience.length > 0){ %> <% Experience.forEach(experience =>{ %>
+      <td><%= experience.Position %></td>
+      <td><%= experience.Company %></td>
+      <td><%= experience.StartYear %></td>
+      <td><%= experience.EndYear %></td>
+      <td><%= experience.Desc %></td>
+      <td>
+        <a
+          href="/viewexperience/<%= experience._id %>"
+          class="btn btn-outline-danger mx-3"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    <% }) %> <% } %>
+  </tbody>
+</table>

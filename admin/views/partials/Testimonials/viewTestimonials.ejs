@@ -1,0 +1,27 @@
+<table id="datatablesSimple">
+  <thead>
+    <tr>
+      <th>Client Name</th>
+      <th>Client Profession</th>
+      <th>Review</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% if(Testimonials.length > 0){ %> <% Testimonials.forEach(testimonials =>
+      { %>
+      <td><%= testimonials.Name %></td>
+      <td><%= testimonials.Profession %></td>
+      <td><%= testimonials.Desc %></td>
+      <td>
+        <a
+          href="/viewtestimonials/<%= testimonials._id %>"
+          class="btn btn-outline-danger mx-3"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    <% }) %> <% } %>
+  </tbody>
+</table>

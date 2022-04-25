@@ -1,0 +1,24 @@
+<table id="datatablesSimple">
+  <thead>
+    <tr>
+      <th>Skill Name</th>
+      <th>Skill Level (%)</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% if(Skills.length > 0){ %> <% Skills.forEach(skills =>{ %>
+      <td><%= skills.Name %></td>
+      <td><%= skills.Level %></td>
+      <td>
+        <a
+          href="/viewskills/<%= skills._id %>"
+          class="btn btn-outline-danger mx-3"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    <% }) %> <% } %>
+  </tbody>
+</table>

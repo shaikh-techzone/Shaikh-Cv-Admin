@@ -1,0 +1,35 @@
+<% Biodata.map(bio => { %>
+
+<h1 class="title pb-3 mb-5">About Me</h1>
+<p><%= bio.AboutMe %></p>
+<div class="row mb-4">
+  <div class="col-sm-6 py-1">
+    <span class="fw-medium text-primary">Name:</span> <%= bio.Name %>
+  </div>
+  <div class="col-sm-6 py-1">
+    <span class="fw-medium text-primary">Birthday:</span> <%= bio.Birthday %>
+  </div>
+  <div class="col-sm-6 py-1">
+    <span class="fw-medium text-primary">Degree:</span> <%= bio.Degree %>
+  </div>
+  <div class="col-sm-6 py-1">
+    <span class="fw-medium text-primary">Experience:</span> <%= bio.Experience
+    %> Years
+  </div>
+  <div class="col-sm-6 py-1">
+    <span class="fw-medium text-primary">Phone:</span>+92 <%= bio.Phone %>
+  </div>
+  <div class="col-sm-6 py-1">
+    <span class="fw-medium text-primary">Email:</span> <%= bio.Email %>
+  </div>
+  <div class="col-sm-6 py-1">
+    <span class="fw-medium text-primary">Address:</span> <%= bio.Address %>
+  </div>
+  <div class="col-sm-6 py-1">
+    <span class="fw-medium text-primary">Freelance:</span> <%= bio.Freelance%>
+  </div>
+</div>
+<a href="/viewbiodata/<%= bio._id %>" class="btn btn-outline-danger mx-3"
+  >Delete</a
+>
+<%})%>

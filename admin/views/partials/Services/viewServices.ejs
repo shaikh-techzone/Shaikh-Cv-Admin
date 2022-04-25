@@ -1,0 +1,25 @@
+<table id="datatablesSimple">
+  <thead>
+    <tr>
+      <th>Service Name</th>
+      <th>Service Desc</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% if(services.length > 0){ %> <% services.forEach(services =>{ %>
+      <td><%= services.ServiceName %></td>
+      <td><%= services.ServiceDesc %></td>
+      <td>
+        <a
+          href="/viewservices/<%= services._id %>"
+          class="btn btn-outline-danger mx-3"
+          >Delete</a
+        >
+        <!-- <a class="btn btn-outline-info">Edit</a> -->
+      </td>
+    </tr>
+    <% }) %> <% } %>
+  </tbody>
+</table>

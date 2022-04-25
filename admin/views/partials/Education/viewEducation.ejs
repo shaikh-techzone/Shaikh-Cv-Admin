@@ -1,0 +1,32 @@
+<table id="datatablesSimple">
+  <thead>
+    <tr>
+      <th>Institute Name</th>
+      <th>Starting Year</th>
+      <th>Ending Year</th>
+      <th>Degree</th>
+      <th>Field of Study</th>
+      <th>Grade</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% if(Education.length > 0){ %> <% Education.forEach(education =>{ %>
+      <td><%= education.Name %></td>
+      <td><%= education.From %></td>
+      <td><%= education.Till %></td>
+      <td><%= education.Degree %></td>
+      <td><%= education.Subject %></td>
+      <td><%= education.Grade %></td>
+      <td>
+        <a
+          href="/vieweducation/<%= education._id %>"
+          class="btn btn-outline-danger mx-3"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    <% }) %> <% } %>
+  </tbody>
+</table>
