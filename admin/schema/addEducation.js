@@ -1,5 +1,6 @@
+// Importing Libraries
 const mongoose = require("mongoose");
-
+// Creating Schema
 const AddEducation = new mongoose.Schema(
   {
     Name: { type: String, required: true },
@@ -14,7 +15,7 @@ const AddEducation = new mongoose.Schema(
     timestamps: true,
   }
 );
-
+// Creating Schema Model
 const model = mongoose.model("AddEducation", AddEducation);
-
+// Exporting Model
 module.exports = model;

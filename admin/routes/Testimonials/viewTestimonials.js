@@ -1,8 +1,11 @@
+// Importing Libraries
 const express = require("express");
-const testimonials = require("../../schema/addTestimonials");
 const mongoose = require("mongoose");
+// Importing Schema Model
+const testimonials = require("../../schema/addTestimonials");
+// Creating Router
 const router = express.Router();
-
+// Rendering View Page
 router.get("/viewtestimonials", async (req, res) => {
   let Testimonials;
   await testimonials
@@ -18,12 +21,11 @@ router.get("/viewtestimonials", async (req, res) => {
     Testimonials,
   });
 });
-
+// Deleting Testimonials
 router.get("/viewtestimonials/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  let action = { _id: id };
-  testimonials.deleteOne(action, (err) => {
+  testimonials.findByIdAndDelete(id, (err) => {
     if (err) {
       throw err;
     } else {
@@ -31,4 +33,5 @@ router.get("/viewtestimonials/:id", async (req, res) => {
     }
   });
 });
+// Exporting Router
 module.exports = router;

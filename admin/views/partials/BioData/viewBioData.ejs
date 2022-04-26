@@ -1,4 +1,4 @@
-<% Biodata.map(bio => { %>
+<%if(Biodata.length>0){%> <% Biodata.map(bio => { %>
 
 <h1 class="title pb-3 mb-5">About Me</h1>
 <p><%= bio.AboutMe %></p>
@@ -29,7 +29,12 @@
     <span class="fw-medium text-primary">Freelance:</span> <%= bio.Freelance%>
   </div>
 </div>
-<a href="/viewbiodata/<%= bio._id %>" class="btn btn-outline-danger mx-3"
-  >Delete</a
->
-<%})%>
+<a href="/viewbiodata/delete/<%= bio._id %>" class="btn btn-outline-danger mx-3"
+  ><i class="fa-solid fa-trash"></i
+></a>
+<a href="/viewbiodata/edit/<%= bio._id %>" class="btn btn-outline-info mx-3"
+  ><i class="fa-solid fa-pen-to-square"></i
+></a>
+<% })}else{ %>
+<h3>No Bio Data Found</h3>
+<% }%>

@@ -1,0 +1,25 @@
+<form method="post">
+  <input type="hidden" name="id" value="<%= Service._id%>" />
+  <div class="row mb-3">
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          id="inputServiceDesc"
+          type="text"
+          name="ServiceDesc"
+          value="<%= Service.ServiceDesc%>"
+          placeholder="Enter your Service Desc"
+        />
+        <label for="inputServiceDesc">Service Desc</label>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4 mb-0">
+    <div class="d-grid">
+      <button class="btn btn-primary btn-block" type="submit">
+        Update Service
+      </button>
+    </div>
+  </div>
+</form>

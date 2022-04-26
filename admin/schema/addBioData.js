@@ -1,5 +1,6 @@
+// Importing Libraries
 const mongoose = require("mongoose");
-
+// Creating Schema
 const AddBioData = new mongoose.Schema(
   {
     Name: { type: String, required: true },
@@ -18,7 +19,7 @@ const AddBioData = new mongoose.Schema(
     timestamps: true,
   }
 );
-
+// Creating Schema Model
 const model = mongoose.model("AddBioData", AddBioData);
-
+// Exporting Model
 module.exports = model;

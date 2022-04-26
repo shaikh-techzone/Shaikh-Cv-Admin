@@ -1,8 +1,11 @@
+// Importing Libraries
 const express = require("express");
-const experience = require("../../schema/addExperience");
 const mongoose = require("mongoose");
+// Importing Schema Model
+const experience = require("../../schema/addExperience");
+// Creating Router
 const router = express.Router();
-
+// Rendering View Page
 router.get("/viewexperience", async (req, res) => {
   let Experience;
   await experience
@@ -19,11 +22,11 @@ router.get("/viewexperience", async (req, res) => {
   });
 });
 
-router.get("/viewexperience/:id", async (req, res) => {
+// Deleting Experience
+router.get("/viewexperience/delete/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  let action = { _id: id };
-  experience.deleteOne(action, (err) => {
+  experience.findByIdAndDelete(id, (err) => {
     if (err) {
       throw err;
     } else {
@@ -31,4 +34,42 @@ router.get("/viewexperience/:id", async (req, res) => {
     }
   });
 });
+// Finding Experience by ID
+router.get("/viewexperience/edit/:id", async (req, res) => {
+  let id;
+  id = req.params.id;
+  let Experience;
+  await experience
+    .findById(id)
+    .then((result) => {
+      Experience = result;
+    })
+    .catch((err) => {
+      console.log(`Error`);
+    });
+
+  res.render("Experience/updateExperience", {
+    title: "Edit Experience",
+    Experience,
+  });
+});
+// Updating Experience By Id
+router.post("/viewexperience/edit/:id", async (req, res) => {
+  let id;
+  id = req.params.id;
+  let updateexperience;
+  await experience
+    .findByIdAndUpdate(id, {
+      Desc: req.body.Desc,
+    })
+    .then((result) => {
+      updateexperience = result;
+      console.log("Updated");
+      res.redirect("/viewexperience");
+    })
+    .catch((err) => {
+      console.log(`Error`);
+    });
+});
+// Exporting Router
 module.exports = router;

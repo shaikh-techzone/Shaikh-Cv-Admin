@@ -19,12 +19,21 @@
       <td><%= experience.Desc %></td>
       <td>
         <a
-          href="/viewexperience/<%= experience._id %>"
+          href="/viewexperience/delete/<%= experience._id %>"
           class="btn btn-outline-danger mx-3"
-          >Delete</a
-        >
+          ><i class="fa-solid fa-trash"></i
+        ></a>
+        <a
+          href="/viewexperience/edit/<%= experience._id %>"
+          class="btn btn-outline-info mx-3"
+          ><i class="fa-solid fa-pen-to-square"></i
+        ></a>
       </td>
     </tr>
-    <% }) %> <% } %>
+    <% })}else{ %>
+    <tr>
+      <td colspan="6"><h3>No Experience Found</h3></td>
+    </tr>
+    <% }%>
   </tbody>
 </table>

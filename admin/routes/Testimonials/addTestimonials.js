@@ -1,11 +1,14 @@
+// Importing Libraries
 const express = require("express");
+// Importing Schema Model
 const testimonials = require("../../schema/addTestimonials");
+// Creating Router
 const router = express.Router();
-
+// Rendering Main Page
 router.get("/addtestimonials", (req, res) => {
   res.render("Testimonials/addTestimonials", { title: "Add Testimonials" });
 });
-
+// Posting Data
 router.post("/addtestimonials", async (req, res) => {
   let Name, Profession, Desc;
   Name = req.body.ClientName;
@@ -26,5 +29,5 @@ router.post("/addtestimonials", async (req, res) => {
       console.log("Failed to Save");
     });
 });
-
+// Exporting Router
 module.exports = router;

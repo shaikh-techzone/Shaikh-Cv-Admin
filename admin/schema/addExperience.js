@@ -1,5 +1,6 @@
+// Importing Libraries
 const mongoose = require("mongoose");
-
+// Creating Schema
 const AddExperience = new mongoose.Schema(
   {
     Position: { type: String, required: true },
@@ -13,7 +14,7 @@ const AddExperience = new mongoose.Schema(
     timestamps: true,
   }
 );
-
+// Creating Schema Model
 const model = mongoose.model("AddExperience", AddExperience);
-
+// Exporting Model
 module.exports = model;

@@ -1,0 +1,25 @@
+<form method="post">
+  <input type="hidden" name="id" value="<%= Experience._id%>" />
+  <div class="row mb-3">
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          id="inputDesc"
+          type="text"
+          name="Desc"
+          value="<%= Experience.Desc%>"
+          placeholder="Enter your Description"
+        />
+        <label for="inputDesc">Description</label>
+      </div>
+    </div>
+  </div>
+  <div class="mt-4 mb-0">
+    <div class="d-grid">
+      <button class="btn btn-primary btn-block" type="submit">
+        Update Experience
+      </button>
+    </div>
+  </div>
+</form>

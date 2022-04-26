@@ -1,11 +1,14 @@
+// Importing Libraries
 const express = require("express");
+// Importing Schema Model
 const service = require("../../schema/addServices");
+// Creating Router
 const router = express.Router();
-
+// Rendering Main Page
 router.get("/addservices", (req, res) => {
   res.render("Services/addServices", { title: "Add Services" });
 });
-
+// Posting Data
 router.post("/addservices", async (req, res) => {
   let ServiceName, ServiceDesc;
   ServiceName = req.body.ServiceName;
@@ -24,5 +27,5 @@ router.post("/addservices", async (req, res) => {
       console.log("Failed to Save");
     });
 });
-
+// Exporting Router
 module.exports = router;

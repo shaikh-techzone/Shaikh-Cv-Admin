@@ -1,8 +1,11 @@
+// Importing Libraries
 const express = require("express");
-const certifications = require("../../schema/addCertifications");
 const mongoose = require("mongoose");
+// Importing Schema Model
+const certifications = require("../../schema/addCertifications");
+// Creating Router
 const router = express.Router();
-
+// Rendering View Page
 router.get("/viewcertifications", async (req, res) => {
   let Certifications;
   await certifications
@@ -18,12 +21,11 @@ router.get("/viewcertifications", async (req, res) => {
     Certifications,
   });
 });
-
+// Deleting Certifications
 router.get("/viewcertifications/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  let action = { _id: id };
-  certifications.deleteOne(action, (err) => {
+  certifications.findByIdAndDelete(id, (err) => {
     if (err) {
       throw err;
     } else {
@@ -31,4 +33,5 @@ router.get("/viewcertifications/:id", async (req, res) => {
     }
   });
 });
+// Exporting Router
 module.exports = router;

@@ -1,11 +1,14 @@
+// Importing Libraries
 const express = require("express");
+// Importing Schema Model
 const education = require("../../schema/addEducation");
+// Creating Router
 const router = express.Router();
-
+// Rendering Main Page
 router.get("/addeducation", (req, res) => {
   res.render("Education/addEducation", { title: "Add Education" });
 });
-
+// Posting Data
 router.post("/addeducation", async (req, res) => {
   let Name, Degree, From, Till, Subject, Grade;
   Name = req.body.InstituteName;
@@ -32,5 +35,5 @@ router.post("/addeducation", async (req, res) => {
       console.log("Failed to Save");
     });
 });
-
+// Exporting Router
 module.exports = router;

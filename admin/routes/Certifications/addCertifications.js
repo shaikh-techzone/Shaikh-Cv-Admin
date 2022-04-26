@@ -1,13 +1,16 @@
+// Importing Libraries
 const express = require("express");
+// Importing Schema Model
 const certifications = require("../../schema/addCertifications");
+// Creating Router
 const router = express.Router();
-
+// Rendering Main Page
 router.get("/addcertifications", (req, res) => {
   res.render("Certifications/addCertifications", {
     title: "Add Certifications",
   });
 });
-
+// Posting Data
 router.post("/addcertifications", async (req, res) => {
   let Name, Issuer, IssueDate;
   Name = req.body.CertificationName;
@@ -28,5 +31,5 @@ router.post("/addcertifications", async (req, res) => {
       console.log("Failed to Save");
     });
 });
-
+// Exporting Router
 module.exports = router;

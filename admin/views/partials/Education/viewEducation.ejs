@@ -23,10 +23,14 @@
         <a
           href="/vieweducation/<%= education._id %>"
           class="btn btn-outline-danger mx-3"
-          >Delete</a
-        >
+          ><i class="fa-solid fa-trash"></i
+        ></a>
       </td>
     </tr>
-    <% }) %> <% } %>
+    <% })}else{ %>
+    <tr>
+      <td colspan="6"><h3>No Education Found</h3></td>
+    </tr>
+    <% }%>
   </tbody>
 </table>

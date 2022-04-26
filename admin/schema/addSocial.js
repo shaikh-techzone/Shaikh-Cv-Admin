@@ -1,5 +1,6 @@
+// Importing Libraries
 const mongoose = require("mongoose");
-
+// Creating Schema
 const AddSocial = new mongoose.Schema(
   {
     Facebook: { type: String, required: true },
@@ -12,7 +13,7 @@ const AddSocial = new mongoose.Schema(
     timestamps: true,
   }
 );
-
+// Creating Schema Model
 const model = mongoose.model("AddSocial", AddSocial);
-
+// Exporting Model
 module.exports = model;

@@ -1,5 +1,6 @@
+// Importing Libraries
 const mongoose = require("mongoose");
-
+// Creating Schema
 const AddCertifications = new mongoose.Schema(
   {
     Name: { type: String, required: true },
@@ -11,7 +12,7 @@ const AddCertifications = new mongoose.Schema(
     timestamps: true,
   }
 );
-
+// Creating Schema Model
 const model = mongoose.model("AddCertifications", AddCertifications);
-
+// Exporting Model
 module.exports = model;

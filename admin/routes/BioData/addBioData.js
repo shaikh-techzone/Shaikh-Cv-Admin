@@ -1,11 +1,14 @@
+// Importing Libraries
 const express = require("express");
+// Importing Schema Model
 const biodata = require("../../schema/addBioData");
+// Creating Router
 const router = express.Router();
-
+// Rendering Main Page
 router.get("/addbiodata", (req, res) => {
   res.render("BioData/addBioData", { title: "Add BioData" });
 });
-
+// Posting Data
 router.post("/addbiodata", async (req, res) => {
   let Name,
     Email,
@@ -49,5 +52,5 @@ router.post("/addbiodata", async (req, res) => {
       console.log("Failed to Save", err);
     });
 });
-
+// Exporting Router
 module.exports = router;

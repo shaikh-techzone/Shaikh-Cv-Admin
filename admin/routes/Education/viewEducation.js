@@ -1,8 +1,11 @@
+// Importing Libraries
 const express = require("express");
-const education = require("../../schema/addEducation");
 const mongoose = require("mongoose");
+// Importing Schema Model
+const education = require("../../schema/addEducation");
+// Creating Router
 const router = express.Router();
-
+// Rendering View Page
 router.get("/vieweducation", async (req, res) => {
   let Education;
   await education
@@ -18,12 +21,11 @@ router.get("/vieweducation", async (req, res) => {
     Education,
   });
 });
-
+// Deleting Education
 router.get("/vieweducation/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  let action = { _id: id };
-  education.deleteOne(action, (err) => {
+  education.findByIdAndDelete(id, (err) => {
     if (err) {
       throw err;
     } else {
@@ -31,4 +33,5 @@ router.get("/vieweducation/:id", async (req, res) => {
     }
   });
 });
+// Exporting Router
 module.exports = router;
