@@ -2,14 +2,15 @@
 const express = require("express");
 // Importing Schema Model
 const testimonials = require("../../schema/addTestimonials");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/addtestimonials", (req, res) => {
+router.get("/admin/addtestimonials", (req, res) => {
   res.render("Testimonials/addTestimonials", { title: "Add Testimonials" });
 });
 // Posting Data
-router.post("/addtestimonials", async (req, res) => {
+router.post("/admin/addtestimonials", async (req, res) => {
   let Name, Profession, Desc;
   Name = req.body.ClientName;
   Profession = req.body.Profession;
@@ -20,10 +21,15 @@ router.post("/addtestimonials", async (req, res) => {
     Profession,
     Desc,
   });
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Testimonial Added",
+  });
   await Testimonials.save()
-    .then((result) => {
+    .then(async (result) => {
+      await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/addtestimonials");
+      res.redirect("/admin/addtestimonials");
     })
     .catch((err) => {
       console.log("Failed to Save");

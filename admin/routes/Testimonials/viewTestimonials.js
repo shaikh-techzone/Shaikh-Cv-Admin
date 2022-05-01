@@ -3,10 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 // Importing Schema Model
 const testimonials = require("../../schema/addTestimonials");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/viewtestimonials", async (req, res) => {
+router.get("/admin/viewtestimonials", async (req, res) => {
   let Testimonials;
   await testimonials
     .find()
@@ -22,14 +23,19 @@ router.get("/viewtestimonials", async (req, res) => {
   });
 });
 // Deleting Testimonials
-router.get("/viewtestimonials/:id", async (req, res) => {
+router.get("/admin/viewtestimonials/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  testimonials.findByIdAndDelete(id, (err) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Testimonial Deleted",
+  });
+  testimonials.findByIdAndDelete(id, async (err) => {
     if (err) {
       throw err;
     } else {
-      res.redirect("/viewtestimonials");
+      await Logs.save();
+      res.redirect("/admin/viewtestimonials");
     }
   });
 });

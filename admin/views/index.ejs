@@ -17,7 +17,7 @@
                 <div class="card bg-primary text-white mb-4">
                   <div class="card-body text-center">
                     <h4 class="card-title">Total Services</h4>
-                    <h1 class="card-text"><%= services.length%></h1>
+                    <h1 class="card-text"><%= noOfServices%></h1>
                   </div>
                 </div>
               </div>
@@ -25,7 +25,7 @@
                 <div class="card bg-warning text-white mb-4">
                   <div class="card-body text-center">
                     <h4 class="card-title">Total Skills</h4>
-                    <h1 class="card-text"><%= Skills.length%></h1>
+                    <h1 class="card-text"><%= noOfSkills%></h1>
                   </div>
                 </div>
               </div>
@@ -33,7 +33,7 @@
                 <div class="card bg-success text-white mb-4">
                   <div class="card-body text-center">
                     <h4 class="card-title">Total Certifications</h4>
-                    <h1 class="card-text"><%= Certifications.length%></h1>
+                    <h1 class="card-text"><%= noOfCertifications%></h1>
                   </div>
                 </div>
               </div>
@@ -41,12 +41,12 @@
                 <div class="card bg-danger text-white mb-4">
                   <div class="card-body text-center">
                     <h4 class="card-title">Total Testimonials</h4>
-                    <h1 class="card-text"><%= Testimonials.length%></h1>
+                    <h1 class="card-text"><%= noOfTestimonials%></h1>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-xl-6">
                 <div class="card mb-4">
                   <div class="card-header">
@@ -69,13 +69,13 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>-->
             <div class="card mb-4">
               <div class="card-header">
                 <i class="fas fa-table me-1"></i>
-                DataTable Example
+                User Logs
               </div>
-              <div class="card-body"><%- include("./partials/tables") %></div>
+              <div class="card-body"><%- include("./partials/tables")%></div>
             </div>
           </div>
         </main>

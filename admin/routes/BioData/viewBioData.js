@@ -3,10 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 // Importing Schema Model
 const biodata = require("../../schema/addBioData");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/viewbiodata", async (req, res) => {
+router.get("/admin/viewbiodata", async (req, res) => {
   let Biodata;
   await biodata
     .find()
@@ -19,19 +20,24 @@ router.get("/viewbiodata", async (req, res) => {
   res.render("BioData/viewBioData", { title: "View BioData", Biodata });
 });
 // Deleting Bio Data
-router.get("/viewbiodata/delete/:id", async (req, res) => {
+router.get("/admin/viewbiodata/delete/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  biodata.findByIdAndDelete(id, (err) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "BioData Deleted",
+  });
+  biodata.findByIdAndDelete(id, async (err) => {
     if (err) {
       throw err;
     } else {
-      res.redirect("/viewbiodata");
+      await Logs.save();
+      res.redirect("/admin/viewbiodata");
     }
   });
 });
 // Finding Bio Data by ID
-router.get("/viewbiodata/edit/:id", async (req, res) => {
+router.get("/admin/viewbiodata/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let bio;
@@ -47,7 +53,12 @@ router.get("/viewbiodata/edit/:id", async (req, res) => {
   res.render("BioData/updateBioData", { title: "Edit BioData", bio });
 });
 // Updating Bio Data By Id
-router.post("/viewbiodata/edit/:id", async (req, res) => {
+router.post("/admin/viewbiodata/edit/:id", async (req, res) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "BioData Updated",
+  });
+
   let id;
   id = req.params.id;
   let updatebio;
@@ -64,10 +75,11 @@ router.post("/viewbiodata/edit/:id", async (req, res) => {
       Freelance: req.body.Freelance,
       Position: req.body.Position,
     })
-    .then((result) => {
+    .then(async (result) => {
+      await Logs.save();
       updatebio = result;
       console.log("Updated");
-      res.redirect("/viewbiodata");
+      res.redirect("/admin/viewbiodata");
     })
     .catch((err) => {
       console.log(`Error`);

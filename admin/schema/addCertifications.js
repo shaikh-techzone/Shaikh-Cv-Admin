@@ -5,7 +5,8 @@ const AddCertifications = new mongoose.Schema(
   {
     Name: { type: String, required: true },
     Issuer: { type: String, required: true },
-    IssueDate: { type: String, required: true },
+    IssueYear: { type: String, required: true },
+    Desc: { type: String, required: true },
   },
   {
     collection: "Certifications",

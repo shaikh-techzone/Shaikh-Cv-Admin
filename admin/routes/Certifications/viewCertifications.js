@@ -3,10 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 // Importing Schema Model
 const certifications = require("../../schema/addCertifications");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/viewcertifications", async (req, res) => {
+router.get("/admin/viewcertifications", async (req, res) => {
   let Certifications;
   await certifications
     .find()
@@ -22,14 +23,19 @@ router.get("/viewcertifications", async (req, res) => {
   });
 });
 // Deleting Certifications
-router.get("/viewcertifications/:id", async (req, res) => {
+router.get("/admin/viewcertifications/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  certifications.findByIdAndDelete(id, (err) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Certification Deleted",
+  });
+  certifications.findByIdAndDelete(id, async (err) => {
     if (err) {
       throw err;
     } else {
-      res.redirect("/viewcertifications");
+      await Logs.save();
+      res.redirect("/admin/viewcertifications");
     }
   });
 });

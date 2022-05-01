@@ -3,10 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 // Importing Schema Model
 const experience = require("../../schema/addExperience");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/viewexperience", async (req, res) => {
+router.get("/admin/viewexperience", async (req, res) => {
   let Experience;
   await experience
     .find()
@@ -23,19 +24,24 @@ router.get("/viewexperience", async (req, res) => {
 });
 
 // Deleting Experience
-router.get("/viewexperience/delete/:id", async (req, res) => {
+router.get("/admin/viewexperience/delete/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  experience.findByIdAndDelete(id, (err) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Experience Deleted",
+  });
+  experience.findByIdAndDelete(id, async (err) => {
     if (err) {
       throw err;
     } else {
-      res.redirect("/viewexperience");
+      await Logs.save();
+      res.redirect("/admin/viewexperience");
     }
   });
 });
 // Finding Experience by ID
-router.get("/viewexperience/edit/:id", async (req, res) => {
+router.get("/admin/viewexperience/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let Experience;
@@ -54,18 +60,23 @@ router.get("/viewexperience/edit/:id", async (req, res) => {
   });
 });
 // Updating Experience By Id
-router.post("/viewexperience/edit/:id", async (req, res) => {
+router.post("/admin/viewexperience/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Experience Updated",
+  });
   let updateexperience;
   await experience
     .findByIdAndUpdate(id, {
       Desc: req.body.Desc,
     })
-    .then((result) => {
+    .then(async (result) => {
+      await Logs.save();
       updateexperience = result;
       console.log("Updated");
-      res.redirect("/viewexperience");
+      res.redirect("/admin/viewexperience");
     })
     .catch((err) => {
       console.log(`Error`);

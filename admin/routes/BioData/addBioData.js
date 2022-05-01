@@ -2,14 +2,17 @@
 const express = require("express");
 // Importing Schema Model
 const biodata = require("../../schema/addBioData");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/addbiodata", (req, res) => {
+router.get("/admin/addbiodata", (req, res) => {
   res.render("BioData/addBioData", { title: "Add BioData" });
 });
 // Posting Data
-router.post("/addbiodata", async (req, res) => {
+router.post("/admin/addbiodata", async (req, res) => {
+  let User, Action;
+  User = "Shaikh Admin";
   let Name,
     Email,
     Address,
@@ -43,10 +46,15 @@ router.post("/addbiodata", async (req, res) => {
     Freelance,
     Position,
   });
+  const Logs = new Userlogs({
+    User,
+    Action: "BioData Added",
+  });
   await Biodata.save()
-    .then((result) => {
+    .then(async (result) => {
+      await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/addbiodata");
+      res.redirect("/admin/addbiodata");
     })
     .catch((err) => {
       console.log("Failed to Save", err);

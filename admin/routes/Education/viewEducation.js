@@ -3,10 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 // Importing Schema Model
 const education = require("../../schema/addEducation");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/vieweducation", async (req, res) => {
+router.get("/admin/vieweducation", async (req, res) => {
   let Education;
   await education
     .find()
@@ -22,14 +23,19 @@ router.get("/vieweducation", async (req, res) => {
   });
 });
 // Deleting Education
-router.get("/vieweducation/:id", async (req, res) => {
+router.get("/admin/vieweducation/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  education.findByIdAndDelete(id, (err) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Education Deleted",
+  });
+  education.findByIdAndDelete(id, async (err) => {
     if (err) {
       throw err;
     } else {
-      res.redirect("/vieweducation");
+      await Logs.save();
+      res.redirect("/admin/vieweducation");
     }
   });
 });

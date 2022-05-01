@@ -29,10 +29,14 @@
     <span class="fw-medium text-primary">Freelance:</span> <%= bio.Freelance%>
   </div>
 </div>
-<a href="/viewbiodata/delete/<%= bio._id %>" class="btn btn-outline-danger mx-3"
+<a
+  href="/admin/viewbiodata/delete/<%= bio._id %>"
+  class="btn btn-outline-danger mx-3"
   ><i class="fa-solid fa-trash"></i
 ></a>
-<a href="/viewbiodata/edit/<%= bio._id %>" class="btn btn-outline-info mx-3"
+<a
+  href="/admin/viewbiodata/edit/<%= bio._id %>"
+  class="btn btn-outline-info mx-3"
   ><i class="fa-solid fa-pen-to-square"></i
 ></a>
 <% })}else{ %>

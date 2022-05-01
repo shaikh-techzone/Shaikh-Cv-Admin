@@ -3,10 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 // Importing Schema Model
 const skills = require("../../schema/addSkills");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/viewskills", async (req, res) => {
+router.get("/admin/viewskills", async (req, res) => {
   let Skills;
   await skills
     .find()
@@ -19,15 +20,19 @@ router.get("/viewskills", async (req, res) => {
   res.render("Skills/viewskills", { title: "View Skills", Skills });
 });
 // Deleting Skills
-router.get("/viewskills/:id", async (req, res) => {
+router.get("/admin/viewskills/:id", async (req, res) => {
   let id;
   id = req.params.id;
-
-  skills.findByIdAndDelete(id, (err) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Skill Deleted",
+  });
+  skills.findByIdAndDelete(id, async (err) => {
     if (err) {
       throw err;
     } else {
-      res.redirect("/viewskills");
+      await Logs.save();
+      res.redirect("/admin/viewskills");
     }
   });
 });

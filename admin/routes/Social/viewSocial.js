@@ -3,10 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 // Importing Schema Model
 const social = require("../../schema/addSocial");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering View page
-router.get("/viewsocial", async (req, res) => {
+router.get("/admin/viewsocial", async (req, res) => {
   let Social;
   await social
     .find()
@@ -20,19 +21,24 @@ router.get("/viewsocial", async (req, res) => {
 });
 
 // Deleting Social
-router.get("/viewsocial/delete/:id", async (req, res) => {
+router.get("/admin/viewsocial/delete/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  social.findByIdAndDelete(id, (err) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Social Deleted",
+  });
+  social.findByIdAndDelete(id, async (err) => {
     if (err) {
       throw err;
     } else {
-      res.redirect("/viewsocial");
+      await Logs.save();
+      res.redirect("/admin/viewsocial");
     }
   });
 });
 // Finding Social by ID
-router.get("/viewsocial/edit/:id", async (req, res) => {
+router.get("/admin/viewsocial/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let Social;
@@ -48,10 +54,14 @@ router.get("/viewsocial/edit/:id", async (req, res) => {
   res.render("Social/updateSocial", { title: "Edit Social", Social });
 });
 // Updating Social By Id
-router.post("/viewsocial/edit/:id", async (req, res) => {
+router.post("/admin/viewsocial/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let updatesocial;
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Social Updated",
+  });
   await social
     .findByIdAndUpdate(id, {
       Facebook: req.body.Facebook,
@@ -59,10 +69,11 @@ router.post("/viewsocial/edit/:id", async (req, res) => {
       LinkedIn: req.body.LinkedIn,
       Github: req.body.Github,
     })
-    .then((result) => {
+    .then(async (result) => {
+      await Logs.save();
       updatesocial = result;
       console.log("Updated");
-      res.redirect("/viewsocial");
+      res.redirect("/admin/viewsocial");
     })
     .catch((err) => {
       console.log(`Error`);

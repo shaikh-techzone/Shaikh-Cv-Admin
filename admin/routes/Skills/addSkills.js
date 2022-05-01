@@ -2,14 +2,15 @@
 const express = require("express");
 // Importing Schema Model
 const skills = require("../../schema/addSkills");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/addskills", (req, res) => {
+router.get("/admin/addskills", (req, res) => {
   res.render("Skills/addSkills", { title: "Add Skills" });
 });
 // Posting Data
-router.post("/addskills", async (req, res) => {
+router.post("/admin/addskills", async (req, res) => {
   let Name, Level;
   Name = req.body.SkillName;
   Level = req.body.SkillLevel;
@@ -18,10 +19,15 @@ router.post("/addskills", async (req, res) => {
     Name,
     Level,
   });
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Skill Added",
+  });
   await Skills.save()
-    .then((result) => {
+    .then(async (result) => {
+      await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/addskills");
+      res.redirect("/admin/addskills");
     })
     .catch((err) => {
       console.log("Failed to Save");

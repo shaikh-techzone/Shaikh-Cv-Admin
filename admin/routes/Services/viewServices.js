@@ -3,10 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 // Importing Schema Model
 const service = require("../../schema/addServices");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/viewservices", async (req, res) => {
+router.get("/admin/viewservices", async (req, res) => {
   let services;
   await service
     .find()
@@ -20,19 +21,24 @@ router.get("/viewservices", async (req, res) => {
 });
 
 // Deleting Services
-router.get("/viewservices/delete/:id", async (req, res) => {
+router.get("/admin/viewservices/delete/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  service.findByIdAndDelete(id, (err) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Service Deleted",
+  });
+  service.findByIdAndDelete(id, async (err) => {
     if (err) {
       throw err;
     } else {
-      res.redirect("/viewservices");
+      await Logs.save();
+      res.redirect("/admin/viewservices");
     }
   });
 });
 // Finding Services by ID
-router.get("/viewservices/edit/:id", async (req, res) => {
+router.get("/admin/viewservices/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let Service;
@@ -48,18 +54,23 @@ router.get("/viewservices/edit/:id", async (req, res) => {
   res.render("Services/updateServices", { title: "Edit Services", Service });
 });
 // Updating Services By Id
-router.post("/viewservices/edit/:id", async (req, res) => {
+router.post("/admin/viewservices/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let updateservice;
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Service Updated",
+  });
   await service
     .findByIdAndUpdate(id, {
       ServiceDesc: req.body.ServiceDesc,
     })
-    .then((result) => {
+    .then(async (result) => {
+      await Logs.save();
       updateservice = result;
       console.log("Updated");
-      res.redirect("/viewservices");
+      res.redirect("/admin/viewservices");
     })
     .catch((err) => {
       console.log(`Error`);

@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const env = require("dotenv");
 //Importing Components
 const home = require("./routes/home");
 const main = require("./routes/main");
@@ -29,11 +30,15 @@ const viewTestimonials = require("./routes/Testimonials/viewTestimonials");
 // Social Routes
 const addSocial = require("./routes/Social/addSocial");
 const viewSocial = require("./routes/Social/viewSocial");
+// Main Ui Route
+const index = require("./routes/CV/index");
 
 //Creating Server
 const app = express();
+// Configuring dotenv
+env.config();
 //Defining Port
-const port = 5000 || process.env.port;
+const port = process.env.PORT;
 //Setting Templating View Engine
 app.set("view engine", "ejs");
 //app.set("views", "views");
@@ -41,8 +46,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 //DB Connection URI
-const dbCon =
-  "mongodb+srv://Root:sami2003@cluster0.d1uxe.mongodb.net/Project1?retryWrites=true&w=majority";
+const dbCon = process.env.DB_URI;
 //Connecting DB with Server
 mongoose
   .connect(dbCon)
@@ -83,3 +87,5 @@ app.use("/", viewTestimonials);
 // Using Social Routes
 app.use("/", addSocial);
 app.use("/", viewSocial);
+// Using Main UI Route
+app.use("/", index);

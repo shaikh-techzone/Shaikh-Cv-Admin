@@ -2,14 +2,15 @@
 const express = require("express");
 // Importing Schema Model
 const service = require("../../schema/addServices");
+const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/addservices", (req, res) => {
+router.get("/admin/addservices", (req, res) => {
   res.render("Services/addServices", { title: "Add Services" });
 });
 // Posting Data
-router.post("/addservices", async (req, res) => {
+router.post("/admin/addservices", async (req, res) => {
   let ServiceName, ServiceDesc;
   ServiceName = req.body.ServiceName;
   ServiceDesc = req.body.ServiceDesc;
@@ -18,10 +19,15 @@ router.post("/addservices", async (req, res) => {
     ServiceName,
     ServiceDesc,
   });
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Service Added",
+  });
   await Service.save()
-    .then((result) => {
+    .then(async (result) => {
+      await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/addservices");
+      res.redirect("/admin/addservices");
     })
     .catch((err) => {
       console.log("Failed to Save");

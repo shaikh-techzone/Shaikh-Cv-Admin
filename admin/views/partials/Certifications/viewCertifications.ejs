@@ -3,7 +3,8 @@
     <tr>
       <th>Name</th>
       <th>Issuer</th>
-      <th>IssueDate</th>
+      <th>IssueYear</th>
+      <th>Desc</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -13,10 +14,11 @@
       Certifications.forEach(certifications =>{ %>
       <td><%= certifications.Name %></td>
       <td><%= certifications.Issuer %></td>
-      <td><%= certifications.IssueDate %></td>
+      <td><%= certifications.IssueYear %></td>
+      <td><%= certifications.Desc %></td>
       <td>
         <a
-          href="/viewcertifications/<%= certifications._id %>"
+          href="/admin/viewcertifications/<%= certifications._id %>"
           class="btn btn-outline-danger mx-3"
           ><i class="fa-solid fa-trash"></i
         ></a>
