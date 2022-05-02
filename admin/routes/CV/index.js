@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const nodemailer = require("nodemailer");
+// Importing Schemas
 const service = require("../../schema/addServices");
 const skills = require("../../schema/addSkills");
 const testimonials = require("../../schema/addTestimonials");
@@ -101,6 +103,57 @@ router.get("/", async (req, res) => {
     Education,
     Experience,
     BioData,
+  });
+});
+
+router.post("/", (req, res) => {
+  const HOST = process.env.SMTP_HOST;
+  const PORT = process.env.SMTP_PORT;
+  const USER = process.env.SMTP_USER;
+  const PASS = process.env.SMTP_PASS;
+
+  const output = `
+    <p>You have a new contact request</p>
+    <h3>Contact Details</h3>
+    <ul>  
+      <li>Name: ${req.body.name}</li>
+      <li>Email: ${req.body.email}</li>
+      <li>Subject: ${req.body.subject}</li>
+    </ul>
+    <h3>Message</h3>
+    <p>${req.body.message}</p>
+  `;
+
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: HOST,
+    port: PORT,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: USER,
+      pass: PASS,
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+    from: `Shaikh Dev Inc. <shaikhdev.inc@gmail.com>`, // sender address
+    to: "shaikhstudios.production@gmail.com", // list of receivers
+    subject: "Someone has filled the contact form", // Subject line
+    html: output, // html body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    } else {
+      console.log("SUCCESS!!");
+      res.redirect("/");
+    }
   });
 });
 module.exports = router;
