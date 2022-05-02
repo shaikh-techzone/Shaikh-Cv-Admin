@@ -10,6 +10,7 @@ const education = require("../../schema/addEducation");
 const biodata = require("../../schema/addBioData");
 const experience = require("../../schema/addExperience");
 const social = require("../../schema/addSocial");
+const user = require("../../schema/addClient");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -106,7 +107,23 @@ router.get("/", async (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
+  let Name, Email;
+  Name = req.body.name;
+  Email = req.body.email;
+
+  const User = new user({
+    Name,
+    Email,
+  });
+  await User.save()
+    .then((result) => {
+      console.log("Client Details Added");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   const HOST = process.env.SMTP_HOST;
   const PORT = process.env.SMTP_PORT;
   const USER = process.env.SMTP_USER;
