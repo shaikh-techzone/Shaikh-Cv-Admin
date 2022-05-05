@@ -1,4 +1,4 @@
-<% Social.map(social => { %>
+<%if(Social.length>0){%> <% Social.map(social => { %>
 <div class="row mb-4">
   <div class="col-sm-6 py-1">
     <span class="fw-medium text-primary">Facebook:</span> <%= social.Facebook %>
@@ -14,7 +14,16 @@
     <span class="fw-medium text-primary">Github:</span> <%= social.Github %>
   </div>
 </div>
-<a href="/viewsocial/<%= social._id %>" class="btn btn-outline-danger mx-3"
-  >Delete</a
->
-<%})%>
+<a
+  href="/admin/viewsocial/delete/<%= social._id %>"
+  class="btn btn-outline-danger mx-3"
+  ><i class="fa-solid fa-trash"></i
+></a>
+<a
+  href="/admin/viewsocial/edit/<%= social._id %>"
+  class="btn btn-outline-info mx-3"
+  ><i class="fa-solid fa-pen-to-square"></i
+></a>
+<% })}else{ %>
+<h3>No Social Accounts Found</h3>
+<% }%>

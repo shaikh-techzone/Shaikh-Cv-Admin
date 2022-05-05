@@ -1,3 +1,4 @@
+<% if(services.length > 0){ %>
 <table id="datatablesSimple">
   <thead>
     <tr>
@@ -8,18 +9,25 @@
   </thead>
   <tbody>
     <tr>
-      <% if(services.length > 0){ %> <% services.forEach(services =>{ %>
+      <% services.forEach(services =>{ %>
       <td><%= services.ServiceName %></td>
       <td><%= services.ServiceDesc %></td>
       <td>
         <a
-          href="/viewservices/<%= services._id %>"
+          href="/admin/viewservices/delete/<%= services._id %>"
           class="btn btn-outline-danger mx-3"
-          >Delete</a
-        >
-        <!-- <a class="btn btn-outline-info">Edit</a> -->
+          ><i class="fa-solid fa-trash"></i
+        ></a>
+        <a
+          href="/admin/viewservices/edit/<%= services._id %>"
+          class="btn btn-outline-info mx-3"
+          ><i class="fa-solid fa-pen-to-square"></i
+        ></a>
       </td>
     </tr>
-    <% }) %> <% } %>
+    <%})%>
   </tbody>
 </table>
+<% }else{%>
+<p>No Services Added</p>
+<%}%>

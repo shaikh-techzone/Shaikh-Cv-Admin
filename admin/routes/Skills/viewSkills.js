@@ -1,9 +1,13 @@
+// Importing Libraries
 const express = require("express");
-const skills = require("../../schema/addSkills");
 const mongoose = require("mongoose");
+// Importing Schema Model
+const skills = require("../../schema/addSkills");
+const Userlogs = require("../../schema/addLog");
+// Creating Router
 const router = express.Router();
-
-router.get("/viewskills", async (req, res) => {
+// Rendering View Page
+router.get("/admin/viewskills", async (req, res) => {
   let Skills;
   await skills
     .find()
@@ -15,17 +19,22 @@ router.get("/viewskills", async (req, res) => {
     });
   res.render("Skills/viewskills", { title: "View Skills", Skills });
 });
-
-router.get("/viewskills/:id", async (req, res) => {
+// Deleting Skills
+router.get("/admin/viewskills/:id", async (req, res) => {
   let id;
   id = req.params.id;
-  let action = { _id: id };
-  skills.deleteOne(action, (err) => {
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Skill Deleted",
+  });
+  skills.findByIdAndDelete(id, async (err) => {
     if (err) {
       throw err;
     } else {
-      res.redirect("/viewskills");
+      await Logs.save();
+      res.redirect("/admin/viewskills");
     }
   });
 });
+// Exporting Router
 module.exports = router;

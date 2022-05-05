@@ -1,0 +1,119 @@
+
+<form method="post">
+  <input type="hidden" name="id" value="<%= bio._id%>" />
+  <div class="row mb-3">
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          id="inputEmail"
+          type="email"
+          name="Email"
+          value="<%= bio.Email%>"
+          placeholder="Enter your Email"
+        />
+        <label for="inputEmail">Email</label>
+      </div>
+    </div>
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          id="inputAddress"
+          type="text"
+          name="Address"
+          value="<%= bio.Address%>"
+          placeholder="Enter your Address"
+        />
+        <label for="inputAddress">Address</label>
+      </div>
+    </div>
+
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          id="inputPhone"
+          type="tel"
+          name="Phone"
+          value="<%= bio.Phone%>"
+          placeholder="Enter your Phone"
+        />
+        <label for="inputPhone">Phone</label>
+      </div>
+    </div>
+
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          id="inputDegree"
+          type="text"
+          name="Degree"
+          value="<%= bio.Degree%>"
+          placeholder="Enter your Degree"
+        />
+        <label for="inputDegree">Degree</label>
+      </div>
+    </div>
+
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          id="inputExperience"
+          type="number"
+          name="Experience"
+          value="<%= bio.Experience%>"
+          placeholder="Enter your Experience"
+        />
+        <label for="inputExperience">Experience</label>
+      </div>
+    </div>
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <select name="Freelance" id="InputFreelance" class="form-control">
+          <option value="Available" <% if(bio.Freelance=="Available"){ %> Selected <%}%> >Available</option>
+          <option value="Not Available"  <% if(bio.Freelance=="Not Available"){ %> Selected <%}%>>Not Available</option>
+        </select>
+        <label for="InputFreelance">Freelance</label>
+      </div>
+    </div>
+
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          id="inputPosition"
+          type="text"
+          name="Position"
+          value="<%= bio.Position%>"
+          placeholder="Enter your Position"
+        />
+        <label for="inputPosition">Position</label>
+      </div>
+    </div>
+
+    <div class="col-md-6 my-3">
+      <div class="form-floating">
+        <input
+          class="form-control"
+          id="inputAbout"
+          type="text"
+          name="About"
+          value="<%= bio.AboutMe%>"
+          placeholder="Enter your About"
+        />
+        <label for="inputAbout">About</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 mb-0">
+    <div class="d-grid">
+      <button class="btn btn-primary btn-block" type="submit">
+        Update Bio Data
+      </button>
+    </div>
+  </div>
+</form>

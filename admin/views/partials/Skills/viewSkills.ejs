@@ -1,3 +1,4 @@
+<% if(Skills.length > 0){ %>
 <table id="datatablesSimple">
   <thead>
     <tr>
@@ -8,17 +9,20 @@
   </thead>
   <tbody>
     <tr>
-      <% if(Skills.length > 0){ %> <% Skills.forEach(skills =>{ %>
+      <% Skills.forEach(skills =>{ %>
       <td><%= skills.Name %></td>
       <td><%= skills.Level %></td>
       <td>
         <a
-          href="/viewskills/<%= skills._id %>"
+          href="/admin/viewskills/<%= skills._id %>"
           class="btn btn-outline-danger mx-3"
-          >Delete</a
-        >
+          ><i class="fa-solid fa-trash"></i
+        ></a>
       </td>
     </tr>
-    <% }) %> <% } %>
+    <%})%>
   </tbody>
 </table>
+<% }else{%>
+<p>No Skills Added</p>
+<%}%>

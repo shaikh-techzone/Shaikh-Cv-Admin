@@ -1,0 +1,19 @@
+<section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <h1 class="title pb-3 mb-5">Certifications</h1>
+  <div class="border-start border-2 border-light pt-2 ps-5">
+    <%if(Certifications.length>0){%> <% Certifications.map(certificate => { %>
+    <div class="position-relative mb-4">
+      <span
+        class="bi bi-arrow-right fs-4 text-light position-absolute"
+        style="top: -5px; left: -50px"
+      ></span>
+      <h5 class="mb-1"><%= certificate.Name%></h5>
+      <p class="mb-2">
+        <%= certificate.Issuer%> |
+        <small><%= certificate.IssueYear%></small>
+      </p>
+      <p><%= certificate.Desc%></p>
+    </div>
+    <% })} %>
+  </div>
+</section>

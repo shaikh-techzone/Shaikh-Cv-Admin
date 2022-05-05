@@ -1,3 +1,4 @@
+<% if(Testimonials.length > 0){ %>
 <table id="datatablesSimple">
   <thead>
     <tr>
@@ -9,19 +10,21 @@
   </thead>
   <tbody>
     <tr>
-      <% if(Testimonials.length > 0){ %> <% Testimonials.forEach(testimonials =>
-      { %>
+      <% Testimonials.forEach(testimonials => { %>
       <td><%= testimonials.Name %></td>
       <td><%= testimonials.Profession %></td>
       <td><%= testimonials.Desc %></td>
       <td>
         <a
-          href="/viewtestimonials/<%= testimonials._id %>"
+          href="/admin/viewtestimonials/<%= testimonials._id %>"
           class="btn btn-outline-danger mx-3"
-          >Delete</a
-        >
+          ><i class="fa-solid fa-trash"></i
+        ></a>
       </td>
     </tr>
-    <% }) %> <% } %>
+    <%})%>
   </tbody>
 </table>
+<% }else{%>
+<p>No Testimonials Added</p>
+<%}%>

@@ -1,12 +1,16 @@
+// Importing Libraries
 const express = require("express");
+// Importing Schema Model
 const experience = require("../../schema/addExperience");
+const Userlogs = require("../../schema/addLog");
+// Creating Router
 const router = express.Router();
-
-router.get("/addexperience", (req, res) => {
+// Rendering Main Page
+router.get("/admin/addexperience", (req, res) => {
   res.render("Experience/addExperience", { title: "Add Experience" });
 });
-
-router.post("/addexperience", async (req, res) => {
+// Posting Data
+router.post("/admin/addexperience", async (req, res) => {
   let Position, Company, StartYear, EndYear, Desc;
   Position = req.body.Occupation;
   Company = req.body.Company;
@@ -21,14 +25,19 @@ router.post("/addexperience", async (req, res) => {
     EndYear,
     Desc,
   });
+  const Logs = new Userlogs({
+    User: "Shaikh Admin",
+    Action: "Experience Added",
+  });
   await Experience.save()
-    .then((result) => {
+    .then(async (result) => {
+      await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/addexperience");
+      res.redirect("/admin/addexperience");
     })
     .catch((err) => {
       console.log("Failed to Save", err);
     });
 });
-
+// Exporting Router
 module.exports = router;
