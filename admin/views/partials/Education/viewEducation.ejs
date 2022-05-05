@@ -1,3 +1,4 @@
+<% if(Education.length > 0){ %>
 <table id="datatablesSimple">
   <thead>
     <tr>
@@ -12,7 +13,7 @@
   </thead>
   <tbody>
     <tr>
-      <% if(Education.length > 0){ %> <% Education.forEach(education =>{ %>
+      <% Education.forEach(education =>{ %>
       <td><%= education.Name %></td>
       <td><%= education.From %></td>
       <td><%= education.Till %></td>
@@ -27,10 +28,9 @@
         ></a>
       </td>
     </tr>
-    <% })}else{ %>
-    <tr>
-      <td colspan="6"><h3>No Education Found</h3></td>
-    </tr>
-    <% }%>
+    <%})%>
   </tbody>
 </table>
+<% }else{%>
+<p>No Education Added</p>
+<%}%>

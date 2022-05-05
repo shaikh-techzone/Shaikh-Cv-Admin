@@ -1,3 +1,4 @@
+<% if(Experience.length > 0){ %>
 <table id="datatablesSimple">
   <thead>
     <tr>
@@ -11,7 +12,7 @@
   </thead>
   <tbody>
     <tr>
-      <% if(Experience.length > 0){ %> <% Experience.forEach(experience =>{ %>
+      <% Experience.forEach(experience =>{ %>
       <td><%= experience.Position %></td>
       <td><%= experience.Company %></td>
       <td><%= experience.StartYear %></td>
@@ -30,10 +31,9 @@
         ></a>
       </td>
     </tr>
-    <% })}else{ %>
-    <tr>
-      <td colspan="6"><h3>No Experience Found</h3></td>
-    </tr>
-    <% }%>
+    <%})%>
   </tbody>
 </table>
+<% }else{%>
+<p>No Experience Added</p>
+<%}%>

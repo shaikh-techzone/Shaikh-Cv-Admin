@@ -1,3 +1,4 @@
+<% if(Certifications.length> 0){ %>
 <table id="datatablesSimple">
   <thead>
     <tr>
@@ -9,9 +10,8 @@
     </tr>
   </thead>
   <tbody>
+    <%Certifications.forEach(certifications=>{%>
     <tr>
-      <% if(Certifications.length > 0){ %> <%
-      Certifications.forEach(certifications =>{ %>
       <td><%= certifications.Name %></td>
       <td><%= certifications.Issuer %></td>
       <td><%= certifications.IssueYear %></td>
@@ -24,10 +24,9 @@
         ></a>
       </td>
     </tr>
-    <% })}else{ %>
-    <tr>
-      <td colspan="6"><h3>No Certifications Found</h3></td>
-    </tr>
-    <% }%>
+    <%})%>
   </tbody>
 </table>
+<% }else{%>
+<p>No Certifications Added</p>
+<%}%>

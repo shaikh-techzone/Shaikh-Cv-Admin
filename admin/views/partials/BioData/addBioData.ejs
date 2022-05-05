@@ -1,3 +1,7 @@
+<%if(Biodata.length==1){%>
+<h3>Bio Data Already Added</h3>
+
+<%}else{%>
 <form method="post">
   <div class="row mb-3">
     <div class="col-md-6 my-3">
@@ -90,17 +94,17 @@
     </div>
 
     <!-- <div class="col-md-6 my-3">
-      <div class="form-floating">
-        <input
-          class="form-control"
-          id="InputFreelance"
-          type="radio"
-          name="Freelance"
-          value="Available"
-        />
-        <label for="Inputavailable">Available</label>
-      </div>
-    </div> -->
+          <div class="form-floating">
+            <input
+              class="form-control"
+              id="InputFreelance"
+              type="radio"
+              name="Freelance"
+              value="Available"
+            />
+            <label for="Inputavailable">Available</label>
+          </div>
+        </div> -->
     <div class="col-md-6 my-3">
       <div class="form-floating">
         <select name="Freelance" id="InputFreelance" class="form-control">
@@ -146,3 +150,4 @@
     </div>
   </div>
 </form>
+<%}%>

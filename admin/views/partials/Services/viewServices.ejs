@@ -1,3 +1,4 @@
+<% if(services.length > 0){ %>
 <table id="datatablesSimple">
   <thead>
     <tr>
@@ -8,7 +9,7 @@
   </thead>
   <tbody>
     <tr>
-      <% if(services.length > 0){ %> <% services.forEach(services =>{ %>
+      <% services.forEach(services =>{ %>
       <td><%= services.ServiceName %></td>
       <td><%= services.ServiceDesc %></td>
       <td>
@@ -24,10 +25,9 @@
         ></a>
       </td>
     </tr>
-    <% })}else{ %>
-    <tr>
-      <td colspan="6"><h3>No Services Found</h3></td>
-    </tr>
-    <% }%>
+    <%})%>
   </tbody>
 </table>
+<% }else{%>
+<p>No Services Added</p>
+<%}%>

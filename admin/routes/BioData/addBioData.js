@@ -6,8 +6,17 @@ const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addbiodata", (req, res) => {
-  res.render("BioData/addBioData", { title: "Add BioData" });
+router.get("/admin/addbiodata", async (req, res) => {
+  let Biodata;
+  await biodata
+    .find()
+    .then((result) => {
+      Biodata = result;
+    })
+    .catch((err) => {
+      console.log(`Error`);
+    });
+  res.render("BioData/addBioData", { title: "Add BioData", Biodata });
 });
 // Posting Data
 router.post("/admin/addbiodata", async (req, res) => {

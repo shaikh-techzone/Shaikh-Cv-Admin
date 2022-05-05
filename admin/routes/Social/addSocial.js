@@ -6,8 +6,17 @@ const Userlogs = require("../../schema/addLog");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addsocial", (req, res) => {
-  res.render("Social/addSocial", { title: "Add Social" });
+router.get("/admin/addsocial", async (req, res) => {
+  let Social;
+  await social
+    .find()
+    .then((result) => {
+      Social = result;
+    })
+    .catch((err) => {
+      console.log(`Error`);
+    });
+  res.render("Social/addSocial", { title: "Add Social", Social });
 });
 // Posting Data
 router.post("/admin/addsocial", async (req, res) => {
