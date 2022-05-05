@@ -30,8 +30,6 @@ const viewTestimonials = require("./routes/Testimonials/viewTestimonials");
 // Social Routes
 const addSocial = require("./routes/Social/addSocial");
 const viewSocial = require("./routes/Social/viewSocial");
-// Main Ui Route
-const index = require("./routes/CV/index");
 
 //Creating Server
 const app = express();
@@ -87,5 +85,3 @@ app.use("/", viewTestimonials);
 // Using Social Routes
 app.use("/", addSocial);
 app.use("/", viewSocial);
-// Using Main UI Route
-app.use("/", index);
