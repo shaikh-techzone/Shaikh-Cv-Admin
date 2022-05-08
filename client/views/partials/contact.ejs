@@ -16,6 +16,7 @@
             id="name"
             name="name"
             required
+            pattern="[a-zA-Z\s]{2,}"
             placeholder="Your Name"
           />
           <label for="name">Your Name</label>
@@ -29,6 +30,7 @@
             id="email"
             name="email"
             required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             placeholder="Your Email"
           />
           <label for="email">Your Email</label>
@@ -42,6 +44,7 @@
             id="subject"
             name="subject"
             required
+            pattern="[a-zA-Z\s]{2,}"
             placeholder="Subject"
           />
           <label for="subject">Subject</label>
