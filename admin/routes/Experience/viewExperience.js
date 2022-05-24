@@ -8,6 +8,8 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering View Page
 router.get("/admin/viewexperience", async (req, res) => {
+  // Toast Initialization
+  const experience_toast = req.flash("experience_toast");
   let Experience;
   await experience
     .find()
@@ -20,6 +22,7 @@ router.get("/admin/viewexperience", async (req, res) => {
   res.render("Experience/viewexperience", {
     title: "View Experience",
     Experience,
+    experience_toast,
   });
 });
 
@@ -33,8 +36,20 @@ router.get("/admin/viewexperience/delete/:id", async (req, res) => {
   });
   experience.findByIdAndDelete(id, async (err) => {
     if (err) {
+      // Failed Toast
+      experience_toast = {
+        type: "danger",
+        message: "Experience Failed to Delete!",
+      };
+      req.flash("experience_toast", experience_toast);
       throw err;
     } else {
+      // Success Toast
+      experience_toast = {
+        type: "success",
+        message: "Experience Deleted Successfully!",
+      };
+      req.flash("experience_toast", experience_toast);
       await Logs.save();
       res.redirect("/admin/viewexperience");
     }
@@ -73,12 +88,24 @@ router.post("/admin/viewexperience/edit/:id", async (req, res) => {
       Desc: req.body.Desc,
     })
     .then(async (result) => {
+      // Success Toast
+      experience_toast = {
+        type: "success",
+        message: "Experience Updated Successfully!",
+      };
+      req.flash("experience_toast", experience_toast);
       await Logs.save();
       updateexperience = result;
       console.log("Updated");
       res.redirect("/admin/viewexperience");
     })
     .catch((err) => {
+      // Failed Toast
+      experience_toast = {
+        type: "danger",
+        message: "Experience Failed To Update!",
+      };
+      req.flash("experience_toast", experience_toast);
       console.log(`Error`);
     });
 });

@@ -8,6 +8,8 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering View Page
 router.get("/admin/viewtestimonials", async (req, res) => {
+  // Toast Initialization
+  const testimonial_toast = req.flash("testimonial_toast");
   let Testimonials;
   await testimonials
     .find()
@@ -20,6 +22,7 @@ router.get("/admin/viewtestimonials", async (req, res) => {
   res.render("Testimonials/viewtestimonials", {
     title: "View Testimonials",
     Testimonials,
+    testimonial_toast,
   });
 });
 // Deleting Testimonials
@@ -32,8 +35,20 @@ router.get("/admin/viewtestimonials/:id", async (req, res) => {
   });
   testimonials.findByIdAndDelete(id, async (err) => {
     if (err) {
+      // Failed Toast
+      testimonial_toast = {
+        type: "danger",
+        message: "Testimonial Failed to Delete!",
+      };
+      req.flash("testimonial_toast", testimonial_toast);
       throw err;
     } else {
+      // Success Toast
+      testimonial_toast = {
+        type: "success",
+        message: "Testimonial Deleted Successfully!",
+      };
+      req.flash("testimonial_toast", testimonial_toast);
       await Logs.save();
       res.redirect("/admin/viewtestimonials");
     }

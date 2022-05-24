@@ -7,7 +7,9 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering Main Page
 router.get("/admin/addskills", (req, res) => {
-  res.render("Skills/addSkills", { title: "Add Skills" });
+  // Toast Initialization
+  const addskill_toast = req.flash("addskill_toast");
+  res.render("Skills/addSkills", { title: "Add Skills", addskill_toast });
 });
 // Posting Data
 router.post("/admin/addskills", async (req, res) => {
@@ -25,11 +27,24 @@ router.post("/admin/addskills", async (req, res) => {
   });
   await Skills.save()
     .then(async (result) => {
+      // Success Toast
+      addskill_toast = {
+        type: "success",
+        message: "Skill Created Successfully!",
+      };
+      req.flash("addskill_toast", addskill_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
       res.redirect("/admin/addskills");
     })
     .catch((err) => {
+      // Failed Toast
+      addskill_toast = {
+        type: "danger",
+        message: "Skill Creation Failed!",
+      };
+      req.flash("addskill_toast", addskill_toast);
+
       console.log("Failed to Save");
     });
 });

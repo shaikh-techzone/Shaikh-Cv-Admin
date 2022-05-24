@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const env = require("dotenv");
+const sessions = require("express-session");
+const flash = require("connect-flash");
 //Importing Components
 const home = require("./routes/home");
 const main = require("./routes/main");
@@ -35,6 +37,18 @@ const viewSocial = require("./routes/Social/viewSocial");
 const app = express();
 // Configuring dotenv
 env.config();
+// Using Flash for toast
+app.use(flash());
+// Sessions
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(
+  sessions({
+    secret: "Helloworld" || process.env.SECRET,
+    saveUninitialized: true,
+    cookie: { maxAge: oneDay },
+    resave: false,
+  })
+);
 //Defining Port
 const port = process.env.PORT;
 //Setting Templating View Engine

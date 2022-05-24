@@ -7,7 +7,12 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering Main Page
 router.get("/admin/addtestimonials", (req, res) => {
-  res.render("Testimonials/addTestimonials", { title: "Add Testimonials" });
+  // Toast Initialization
+  const testimonial_toast = req.flash("testimonial_toast");
+  res.render("Testimonials/addTestimonials", {
+    title: "Add Testimonials",
+    testimonial_toast,
+  });
 });
 // Posting Data
 router.post("/admin/addtestimonials", async (req, res) => {
@@ -27,11 +32,23 @@ router.post("/admin/addtestimonials", async (req, res) => {
   });
   await Testimonials.save()
     .then(async (result) => {
+      // Success Toast
+      testimonial_toast = {
+        type: "success",
+        message: "Testimonial Created Successfully!",
+      };
+      req.flash("testimonial_toast", testimonial_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
       res.redirect("/admin/addtestimonials");
     })
     .catch((err) => {
+      // Failed Toast
+      testimonial_toast = {
+        type: "danger",
+        message: "Testimonial Creation Failed!",
+      };
+      req.flash("testimonial_toast", testimonial_toast);
       console.log("Failed to Save");
     });
 });

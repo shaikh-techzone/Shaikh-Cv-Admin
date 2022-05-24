@@ -8,6 +8,8 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering View Page
 router.get("/admin/viewbiodata", async (req, res) => {
+  // Toast Initialization
+  const bio_toast = req.flash("bio_toast");
   let Biodata;
   await biodata
     .find()
@@ -17,7 +19,11 @@ router.get("/admin/viewbiodata", async (req, res) => {
     .catch((err) => {
       console.log(`Error`);
     });
-  res.render("BioData/viewBioData", { title: "View BioData", Biodata });
+  res.render("BioData/viewBioData", {
+    title: "View BioData",
+    Biodata,
+    bio_toast,
+  });
 });
 // Deleting Bio Data
 router.get("/admin/viewbiodata/delete/:id", async (req, res) => {
@@ -29,8 +35,20 @@ router.get("/admin/viewbiodata/delete/:id", async (req, res) => {
   });
   biodata.findByIdAndDelete(id, async (err) => {
     if (err) {
+      // Failed Toast
+      bio_toast = {
+        type: "danger",
+        message: "BioData Deletation Failed!",
+      };
+      req.flash("bio_toast", bio_toast);
       throw err;
     } else {
+      // Success Toast
+      bio_toast = {
+        type: "success",
+        message: "BioData Deleted Successfully!",
+      };
+      req.flash("bio_toast", bio_toast);
       await Logs.save();
       res.redirect("/admin/viewbiodata");
     }
@@ -76,12 +94,24 @@ router.post("/admin/viewbiodata/edit/:id", async (req, res) => {
       Position: req.body.Position,
     })
     .then(async (result) => {
+      // Success Toast
+      bio_toast = {
+        type: "success",
+        message: "BioData Updated Successfully!",
+      };
+      req.flash("bio_toast", bio_toast);
       await Logs.save();
       updatebio = result;
       console.log("Updated");
       res.redirect("/admin/viewbiodata");
     })
     .catch((err) => {
+      // Failed Toast
+      bio_toast = {
+        type: "danger",
+        message: "BioData Failed To Update",
+      };
+      req.flash("bio_toast", bio_toast);
       console.log(`Error`);
     });
 });

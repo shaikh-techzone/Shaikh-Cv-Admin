@@ -7,7 +7,12 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering Main Page
 router.get("/admin/addeducation", (req, res) => {
-  res.render("Education/addEducation", { title: "Add Education" });
+  // Toast Initialization
+  const education_toast = req.flash("education_toast");
+  res.render("Education/addEducation", {
+    title: "Add Education",
+    education_toast,
+  });
 });
 // Posting Data
 router.post("/admin/addeducation", async (req, res) => {
@@ -33,11 +38,23 @@ router.post("/admin/addeducation", async (req, res) => {
   });
   await Education.save()
     .then(async (result) => {
+      // Success Toast
+      education_toast = {
+        type: "success",
+        message: "Education Created Successfully!",
+      };
+      req.flash("education_toast", education_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
       res.redirect("/admin/addeducation");
     })
     .catch((err) => {
+      // Failed Toast
+      education_toast = {
+        type: "danger",
+        message: "Education Creation Failed!",
+      };
+      req.flash("education_toast", education_toast);
       console.log("Failed to Save");
     });
 });

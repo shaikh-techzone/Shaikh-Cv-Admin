@@ -8,6 +8,8 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering View Page
 router.get("/admin/vieweducation", async (req, res) => {
+  // Toast Initialization
+  const education_toast = req.flash("education_toast");
   let Education;
   await education
     .find()
@@ -20,6 +22,7 @@ router.get("/admin/vieweducation", async (req, res) => {
   res.render("Education/vieweducation", {
     title: "View Education",
     Education,
+    education_toast,
   });
 });
 // Deleting Education
@@ -32,8 +35,20 @@ router.get("/admin/vieweducation/:id", async (req, res) => {
   });
   education.findByIdAndDelete(id, async (err) => {
     if (err) {
+      // Failed Toast
+      education_toast = {
+        type: "danger",
+        message: "Education Failed to Delete!",
+      };
+      req.flash("education_toast", education_toast);
       throw err;
     } else {
+      // Success Toast
+      education_toast = {
+        type: "success",
+        message: "Education Deleted Successfully!",
+      };
+      req.flash("education_toast", education_toast);
       await Logs.save();
       res.redirect("/admin/vieweducation");
     }

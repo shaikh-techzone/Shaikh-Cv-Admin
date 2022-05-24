@@ -7,7 +7,12 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering Main Page
 router.get("/admin/addexperience", (req, res) => {
-  res.render("Experience/addExperience", { title: "Add Experience" });
+  // Toast Initialization
+  const experience_toast = req.flash("experience_toast");
+  res.render("Experience/addExperience", {
+    title: "Add Experience",
+    experience_toast,
+  });
 });
 // Posting Data
 router.post("/admin/addexperience", async (req, res) => {
@@ -31,11 +36,24 @@ router.post("/admin/addexperience", async (req, res) => {
   });
   await Experience.save()
     .then(async (result) => {
+      // Success Toast
+      experience_toast = {
+        type: "success",
+        message: "Experience Created Successfully!",
+      };
+      req.flash("experience_toast", experience_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
       res.redirect("/admin/addexperience");
     })
     .catch((err) => {
+      // Failed Toast
+      experience_toast = {
+        type: "danger",
+        message: "Experience Creation Failed!",
+      };
+      req.flash("experience_toast", experience_toast);
+
       console.log("Failed to Save", err);
     });
 });

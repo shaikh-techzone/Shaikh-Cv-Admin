@@ -8,6 +8,8 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering View Page
 router.get("/admin/viewcertifications", async (req, res) => {
+  // Toast Initialization
+  const certificate_toast = req.flash("certificate_toast");
   let Certifications;
   await certifications
     .find()
@@ -20,6 +22,7 @@ router.get("/admin/viewcertifications", async (req, res) => {
   res.render("Certifications/viewcertifications", {
     title: "View Certifications",
     Certifications,
+    certificate_toast,
   });
 });
 // Deleting Certifications
@@ -32,8 +35,20 @@ router.get("/admin/viewcertifications/:id", async (req, res) => {
   });
   certifications.findByIdAndDelete(id, async (err) => {
     if (err) {
+      // Failed Toast
+      certificate_toast = {
+        type: "danger",
+        message: "Certification Failed to Delete!",
+      };
+      req.flash("certificate_toast", certificate_toast);
       throw err;
     } else {
+      // Success Toast
+      certificate_toast = {
+        type: "success",
+        message: "Certification Deleted Successfully!",
+      };
+      req.flash("certificate_toast", certificate_toast);
       await Logs.save();
       res.redirect("/admin/viewcertifications");
     }

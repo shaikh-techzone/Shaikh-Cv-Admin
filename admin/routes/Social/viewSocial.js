@@ -8,6 +8,8 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering View page
 router.get("/admin/viewsocial", async (req, res) => {
+  // Toast Initialization
+  const viewsocial_toast = req.flash("viewsocial_toast");
   let Social;
   await social
     .find()
@@ -17,7 +19,11 @@ router.get("/admin/viewsocial", async (req, res) => {
     .catch((err) => {
       console.log(`Error`);
     });
-  res.render("Social/viewsocial", { title: "View Social", Social });
+  res.render("Social/viewsocial", {
+    title: "View Social",
+    Social,
+    viewsocial_toast,
+  });
 });
 
 // Deleting Social
@@ -30,8 +36,20 @@ router.get("/admin/viewsocial/delete/:id", async (req, res) => {
   });
   social.findByIdAndDelete(id, async (err) => {
     if (err) {
+      // Failed Toast
+      viewsocial_toast = {
+        type: "danger",
+        message: "Social Failed to Delete!",
+      };
+      req.flash("viewsocial_toast", viewsocial_toast);
       throw err;
     } else {
+      // Success Toast
+      viewsocial_toast = {
+        type: "success",
+        message: "Social Deleted Successfully",
+      };
+      req.flash("viewsocial_toast", viewsocial_toast);
       await Logs.save();
       res.redirect("/admin/viewsocial");
     }
@@ -70,12 +88,24 @@ router.post("/admin/viewsocial/edit/:id", async (req, res) => {
       Github: req.body.Github,
     })
     .then(async (result) => {
+      // Success Toast
+      viewsocial_toast = {
+        type: "success",
+        message: "Social Updated Successfully!",
+      };
+      req.flash("viewsocial_toast", viewsocial_toast);
       await Logs.save();
       updatesocial = result;
       console.log("Updated");
       res.redirect("/admin/viewsocial");
     })
     .catch((err) => {
+      // Failed Toast
+      viewsocial_toast = {
+        type: "danger",
+        message: "Social Failed To Update!",
+      };
+      req.flash("viewsocial_toast", viewsocial_toast);
       console.log(`Error`);
     });
 });

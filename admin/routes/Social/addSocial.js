@@ -7,6 +7,8 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering Main Page
 router.get("/admin/addsocial", async (req, res) => {
+  // Toast Initialization
+  const social_toast = req.flash("social_toast");
   let Social;
   await social
     .find()
@@ -16,7 +18,7 @@ router.get("/admin/addsocial", async (req, res) => {
     .catch((err) => {
       console.log(`Error`);
     });
-  res.render("Social/addSocial", { title: "Add Social", Social });
+  res.render("Social/addSocial", { title: "Add Social", Social, social_toast });
 });
 // Posting Data
 router.post("/admin/addsocial", async (req, res) => {
@@ -38,11 +40,23 @@ router.post("/admin/addsocial", async (req, res) => {
   });
   await Social.save()
     .then(async (result) => {
+      // Success Toast
+      social_toast = {
+        type: "success",
+        message: "Social Created Successfully!",
+      };
+      req.flash("social_toast", social_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
       res.redirect("/admin/addsocial");
     })
     .catch((err) => {
+      // Failed Toast
+      social_toast = {
+        type: "danger",
+        message: "Social Creation Failed!",
+      };
+      req.flash("social_toast", social_toast);
       console.log("Failed to Save");
     });
 });

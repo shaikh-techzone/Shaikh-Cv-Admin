@@ -7,6 +7,8 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering Main Page
 router.get("/admin/addbiodata", async (req, res) => {
+  // Toast Initialization
+  const bio_toast = req.flash("bio_toast");
   let Biodata;
   await biodata
     .find()
@@ -16,7 +18,11 @@ router.get("/admin/addbiodata", async (req, res) => {
     .catch((err) => {
       console.log(`Error`);
     });
-  res.render("BioData/addBioData", { title: "Add BioData", Biodata });
+  res.render("BioData/addBioData", {
+    title: "Add BioData",
+    Biodata,
+    bio_toast,
+  });
 });
 // Posting Data
 router.post("/admin/addbiodata", async (req, res) => {
@@ -61,11 +67,24 @@ router.post("/admin/addbiodata", async (req, res) => {
   });
   await Biodata.save()
     .then(async (result) => {
+      // Success Toast
+      bio_toast = {
+        type: "success",
+        message: "Biodata Created Successfully!",
+      };
+      req.flash("bio_toast", bio_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
       res.redirect("/admin/addbiodata");
     })
     .catch((err) => {
+      // Failed Toast
+      bio_toast = {
+        type: "danger",
+        message: "Biodata Creation Failed!",
+      };
+      req.flash("bio_toast", bio_toast);
+
       console.log("Failed to Save", err);
     });
 });

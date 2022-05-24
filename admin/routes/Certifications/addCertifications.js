@@ -7,8 +7,11 @@ const Userlogs = require("../../schema/addLog");
 const router = express.Router();
 // Rendering Main Page
 router.get("/admin/addcertifications", (req, res) => {
+  // Toast Initialization
+  const certificate_toast = req.flash("certificate_toast");
   res.render("Certifications/addCertifications", {
     title: "Add Certifications",
+    certificate_toast,
   });
 });
 // Posting Data
@@ -31,11 +34,23 @@ router.post("/admin/addcertifications", async (req, res) => {
   });
   await Certifications.save()
     .then(async (result) => {
+      // Success Toast
+      certificate_toast = {
+        type: "success",
+        message: "Certification Created Successfully!",
+      };
+      req.flash("certificate_toast", certificate_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
       res.redirect("/admin/addcertifications");
     })
     .catch((err) => {
+      // Failed Toast
+      certificate_toast = {
+        type: "danger",
+        message: "Certification Creation Failed!",
+      };
+      req.flash("certificate_toast", certificate_toast);
       console.log("Failed to Save");
     });
 });

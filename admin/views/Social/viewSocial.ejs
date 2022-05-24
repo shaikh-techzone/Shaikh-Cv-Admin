@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include("../partials/head") %>
-  <body class="sb-nav-fixed">
-    <%- include("../partials/navbar")%>
-    <div id="layoutSidenav">
-      <%- include("../partials/sidebar")%>
-      <div id="layoutSidenav_content">
-        <main>
-          <div class="container-fluid px-4">
-            <h1 class="mt-4">View Social Accounts</h1>
-            <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item">
-                <a href="/admin/home">Dashboard</a>
-              </li>
-              <li class="breadcrumb-item active">View Social Accounts</li>
-            </ol>
-            <div class="card mb-4">
-              <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                View Social Accounts
-              </div>
-              <div class="card-body">
-                <%- include("../partials/Social/viewSocial") %>
-              </div>
+<%- include("../partials/head") %>
+
+<body class="sb-nav-fixed">
+  <%- include("../partials/navbar")%>
+  <div id="layoutSidenav">
+    <%- include("../partials/sidebar")%>
+    <div id="layoutSidenav_content">
+      <main>
+        <div class="container-fluid px-4">
+          <h1 class="mt-4">View Social Accounts</h1>
+          <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item">
+              <a href="/admin/home">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">View Social Accounts</li>
+          </ol>
+          <!-- Flash Message -->
+          <% if(viewsocial_toast !='' ){ %>
+          <% viewsocial_toast.forEach(msg =>{ %>
+          <div class="alert alert-<%= msg.type%> text-center alert-dismissible fade show" data-delay="10000" data-autohide="true" role="alert">
+            <%= msg.message%>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <%})}%>
+          <div class="card mb-4">
+            <div class="card-header">
+              <i class="fas fa-table me-1"></i>
+              View Social Accounts
+            </div>
+            <div class="card-body">
+              <%- include("../partials/Social/viewSocial") %>
             </div>
           </div>
-        </main>
-        <%- include("../partials/footer")%>
-      </div>
+        </div>
+      </main>
+      <%- include("../partials/footer")%>
     </div>
-    <%- include("../partials/script")%>
-  </body>
+  </div>
+  <%- include("../partials/script")%>
+</body>
+
 </html>
