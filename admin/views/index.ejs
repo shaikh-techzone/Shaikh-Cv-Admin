@@ -1,87 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include("./partials/head") %>
-  <body class="sb-nav-fixed">
-    <%- include("./partials/navbar")%>
-    <div id="layoutSidenav">
-      <%- include("./partials/sidebar")%>
-      <div id="layoutSidenav_content">
-        <main>
-          <div class="container-fluid px-4">
-            <h1 class="mt-4">Dashboard</h1>
-            <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-            <div class="row">
-              <div class="col-xl-3 col-md-6">
-                <div class="card bg-primary text-white mb-4">
-                  <div class="card-body text-center">
-                    <h4 class="card-title">Total Services</h4>
-                    <h1 class="card-text"><%= noOfServices%></h1>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-md-6">
-                <div class="card bg-warning text-white mb-4">
-                  <div class="card-body text-center">
-                    <h4 class="card-title">Total Skills</h4>
-                    <h1 class="card-text"><%= noOfSkills%></h1>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-md-6">
-                <div class="card bg-success text-white mb-4">
-                  <div class="card-body text-center">
-                    <h4 class="card-title">Total Certifications</h4>
-                    <h1 class="card-text"><%= noOfCertifications%></h1>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-3 col-md-6">
-                <div class="card bg-danger text-white mb-4">
-                  <div class="card-body text-center">
-                    <h4 class="card-title">Total Testimonials</h4>
-                    <h1 class="card-text"><%= noOfTestimonials%></h1>
-                  </div>
+<%- include("./partials/head") %>
+
+<body class="sb-nav-fixed">
+  <%- include("./partials/navbar")%>
+  <div id="layoutSidenav">
+    <%- include("./partials/sidebar")%>
+    <div id="layoutSidenav_content">
+      <main>
+        <div class="container-fluid px-4">
+          <h1 class="mt-4">Dashboard</h1>
+          <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+          <div class="row">
+            <div class="col-xl-3 col-md-6">
+              <div class="card bg-primary text-white mb-4">
+                <div class="card-body text-center">
+                  <h4 class="card-title">Total Services</h4>
+                  <h1 class="card-text"><%= noOfServices%></h1>
                 </div>
               </div>
             </div>
-            <!-- <div class="row">
-              <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-header">
-                    <i class="fas fa-chart-area me-1"></i>
-                    Area Chart Example
-                  </div>
-                  <div class="card-body">
-                    <canvas id="myAreaChart" width="100%" height="40"></canvas>
-                  </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card bg-warning text-white mb-4">
+                <div class="card-body text-center">
+                  <h4 class="card-title">Total Skills</h4>
+                  <h1 class="card-text"><%= noOfSkills%></h1>
                 </div>
               </div>
-              <div class="col-xl-6">
-                <div class="card mb-4">
-                  <div class="card-header">
-                    <i class="fas fa-chart-bar me-1"></i>
-                    Bar Chart Example
-                  </div>
-                  <div class="card-body">
-                    <canvas id="myBarChart" width="100%" height="40"></canvas>
-                  </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card bg-success text-white mb-4">
+                <div class="card-body text-center">
+                  <h4 class="card-title">Total Certifications</h4>
+                  <h1 class="card-text"><%= noOfCertifications%></h1>
                 </div>
               </div>
-            </div>-->
-            <div class="card mb-4">
-              <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                User Logs
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card bg-danger text-white mb-4">
+                <div class="card-body text-center">
+                  <h4 class="card-title">Total Testimonials</h4>
+                  <h1 class="card-text"><%= noOfTestimonials%></h1>
+                </div>
               </div>
-              <div class="card-body"><%- include("./partials/tables")%></div>
             </div>
           </div>
-        </main>
-        <%- include("./partials/footer")%>
-      </div>
+          <div class="card mb-4">
+            <div class="card-header">
+              <i class="fas fa-table me-1"></i>
+              User Logs
+            </div>
+            <div class="card-body"><%- include("./partials/tables")%></div>
+          </div>
+        </div>
+      </main>
+      <%- include("./partials/footer")%>
     </div>
-    <%- include("./partials/script")%>
-  </body>
+  </div>
+  <%- include("./partials/script")%>
+</body>
+
 </html>

@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const env = require("dotenv");
 const sessions = require("express-session");
 const flash = require("connect-flash");
+const cookieParser = require("cookie-parser");
 //Importing Components
 const home = require("./routes/home");
 const main = require("./routes/main");
@@ -32,6 +33,12 @@ const viewTestimonials = require("./routes/Testimonials/viewTestimonials");
 // Social Routes
 const addSocial = require("./routes/Social/addSocial");
 const viewSocial = require("./routes/Social/viewSocial");
+// Login Route
+const login = require("./routes/Login/login");
+// Register Route
+const register = require("./routes/Register/register");
+// Logout Route
+const logout = require("./routes/Logout/logout");
 
 //Creating Server
 const app = express();
@@ -49,6 +56,9 @@ app.use(
     resave: false,
   })
 );
+// Using Cookie Parser
+app.use(cookieParser());
+
 //Defining Port
 const port = process.env.PORT;
 //Setting Templating View Engine
@@ -99,3 +109,9 @@ app.use("/", viewTestimonials);
 // Using Social Routes
 app.use("/", addSocial);
 app.use("/", viewSocial);
+// Using Login Route
+app.use("/", login);
+// Using Regsiter Route
+app.use("/", register);
+// Using Logout Route
+app.use("/", logout);

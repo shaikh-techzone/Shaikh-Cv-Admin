@@ -5,9 +5,10 @@ const skills = require("../schema/addSkills");
 const testimonials = require("../schema/addTestimonials");
 const certifications = require("../schema/addCertifications");
 const logs = require("../schema/addLog");
+const { requireAuth } = require("./auth");
 const router = express.Router();
 
-router.get("/admin/home", async (req, res) => {
+router.get("/admin/home", requireAuth, async (req, res) => {
   let Services, noOfServices;
   await service
     .find()
