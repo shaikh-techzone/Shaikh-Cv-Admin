@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 // Importing Schema Model
 const skills = require("../../schema/addSkills");
 const Userlogs = require("../../schema/addLog");
+const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/admin/viewskills", async (req, res) => {
+router.get("/admin/viewskills", requireAuth, async (req, res) => {
   // Toast Initialization
   const viewskill_toast = req.flash("viewskill_toast");
   let Skills;

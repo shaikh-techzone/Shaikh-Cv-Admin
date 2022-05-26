@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 // Importing Schema Model
 const certifications = require("../../schema/addCertifications");
 const Userlogs = require("../../schema/addLog");
+const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/admin/viewcertifications", async (req, res) => {
+router.get("/admin/viewcertifications", requireAuth, async (req, res) => {
   // Toast Initialization
   const certificate_toast = req.flash("certificate_toast");
   let Certifications;

@@ -3,10 +3,11 @@ const express = require("express");
 // Importing Schema Model
 const testimonials = require("../../schema/addTestimonials");
 const Userlogs = require("../../schema/addLog");
+const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addtestimonials", (req, res) => {
+router.get("/admin/addtestimonials", requireAuth, (req, res) => {
   // Toast Initialization
   const testimonial_toast = req.flash("testimonial_toast");
   res.render("Testimonials/addTestimonials", {

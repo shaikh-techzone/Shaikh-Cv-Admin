@@ -12,6 +12,13 @@
             <div class="col-lg-5">
               <div class="card shadow-lg border-0 rounded-lg mt-5">
                 <div class="card-header">
+                  <% if(login_toast !='' ){ %>
+                  <% login_toast.forEach(msg=>{%>
+                  <div class="alert alert-<%= msg.type%> text-center alert-dismissible fade show" role="alert">
+                    <%= msg.message%>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                  <%})}%>
                   <h3 class="text-center font-weight-light my-4">Login</h3>
                 </div>
                 <div class="card-body">

@@ -3,10 +3,11 @@ const express = require("express");
 // Importing Schema Model
 const service = require("../../schema/addServices");
 const Userlogs = require("../../schema/addLog");
+const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addservices", (req, res) => {
+router.get("/admin/addservices", requireAuth, (req, res) => {
   // Toast Initialization
   const service_toast = req.flash("service_toast");
   res.render("Services/addServices", { title: "Add Services", service_toast });

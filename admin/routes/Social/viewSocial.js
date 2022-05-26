@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 // Importing Schema Model
 const social = require("../../schema/addSocial");
 const Userlogs = require("../../schema/addLog");
+const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View page
-router.get("/admin/viewsocial", async (req, res) => {
+router.get("/admin/viewsocial", requireAuth, async (req, res) => {
   // Toast Initialization
   const viewsocial_toast = req.flash("viewsocial_toast");
   let Social;

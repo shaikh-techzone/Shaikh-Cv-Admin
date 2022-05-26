@@ -8,18 +8,18 @@ const router = express.Router();
 // create json web token
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, "net ninja secret", {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: maxAge,
   });
 };
 
-router.get("/", (req, res) => {
-  res.render("welcome", { title: "Welcome" });
-});
+// router.get("/", (req, res) => {
+//   res.render("welcome", { title: "Welcome" });
+// });
 
 router.get("/admin/login", (req, res) => {
-  // const login_toast = req.flash('login_toast')
-  res.render("Login/login", { title: "Login" });
+  const login_toast = req.flash("login_toast");
+  res.render("Login/login", { title: "Login", login_toast });
 });
 
 router.post("/admin/login", async (req, res) => {
@@ -35,10 +35,22 @@ router.post("/admin/login", async (req, res) => {
       res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.redirect("/admin/home");
     } else {
-      res.send("Incorrect Password");
+      // Failed Toast
+      login_toast = {
+        type: "danger",
+        message: "Incorrect Credentials",
+      };
+      req.flash("login_toast", login_toast);
+      res.redirect("/admin/login");
     }
   } else {
-    res.send("Incorrect Email");
+    // Failed Toast
+    login_toast = {
+      type: "danger",
+      message: "Incorrect Credentials",
+    };
+    req.flash("login_toast", login_toast);
+    res.redirect("/admin/login");
   }
 });
 

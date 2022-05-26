@@ -3,10 +3,11 @@ const express = require("express");
 // Importing Schema Model
 const biodata = require("../../schema/addBioData");
 const Userlogs = require("../../schema/addLog");
+const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addbiodata", async (req, res) => {
+router.get("/admin/addbiodata", requireAuth, async (req, res) => {
   // Toast Initialization
   const bio_toast = req.flash("bio_toast");
   let Biodata;

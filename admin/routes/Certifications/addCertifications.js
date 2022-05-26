@@ -3,10 +3,11 @@ const express = require("express");
 // Importing Schema Model
 const certifications = require("../../schema/addCertifications");
 const Userlogs = require("../../schema/addLog");
+const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addcertifications", (req, res) => {
+router.get("/admin/addcertifications", requireAuth, (req, res) => {
   // Toast Initialization
   const certificate_toast = req.flash("certificate_toast");
   res.render("Certifications/addCertifications", {

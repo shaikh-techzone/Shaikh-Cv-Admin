@@ -33,6 +33,8 @@ const viewTestimonials = require("./routes/Testimonials/viewTestimonials");
 // Social Routes
 const addSocial = require("./routes/Social/addSocial");
 const viewSocial = require("./routes/Social/viewSocial");
+// User Log Route
+const log = require("./routes/activity");
 // Login Route
 const login = require("./routes/Login/login");
 // Register Route
@@ -109,6 +111,8 @@ app.use("/", viewTestimonials);
 // Using Social Routes
 app.use("/", addSocial);
 app.use("/", viewSocial);
+// Using Log Route
+app.use("/", log);
 // Using Login Route
 app.use("/", login);
 // Using Regsiter Route

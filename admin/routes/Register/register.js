@@ -8,12 +8,13 @@ const router = express.Router();
 // create json web token
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, "net ninja secret", {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: maxAge,
   });
 };
 
 router.get("/admin/register", async (req, res) => {
+  const register_toast = req.flash("register_toast");
   let userrole;
   await User.findOne({ Role: "Owner" })
     .then((result) => {
@@ -24,9 +25,9 @@ router.get("/admin/register", async (req, res) => {
       console.log(err);
     });
   if (userrole) {
-    res.redirect("/admin/login");
+    res.redirect("/");
   } else {
-    res.render("Register/register", { title: "Register" });
+    res.render("Register/register", { title: "Register", register_toast });
   }
 });
 
@@ -43,20 +44,15 @@ router.post(
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.send("Error!!!!");
-    }
-    // Saving User to DB
-    let user;
-    await User.findOne({ email })
-      .then((result) => {
-        user = result;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    if (user) {
-      res.send("User Exists");
+      // Failed Toast
+      register_toast = {
+        type: "danger",
+        message: "Please Enter correct email and password atleast 8 digit",
+      };
+      req.flash("register_toast", register_toast);
+      res.redirect("/admin/register");
     } else {
+      // Saving User to DB
       const userDetail = new User({
         Name: FullName,
         Email: email,
@@ -71,7 +67,7 @@ router.post(
           res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
           // res.json({ user: owner._id });
           console.log("SuccessFully");
-          res.redirect("/");
+          res.redirect("/admin/home");
         })
         .catch((err) => {
           console.log(err);

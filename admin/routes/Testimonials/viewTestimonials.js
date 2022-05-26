@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 // Importing Schema Model
 const testimonials = require("../../schema/addTestimonials");
 const Userlogs = require("../../schema/addLog");
+const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/admin/viewtestimonials", async (req, res) => {
+router.get("/admin/viewtestimonials", requireAuth, async (req, res) => {
   // Toast Initialization
   const testimonial_toast = req.flash("testimonial_toast");
   let Testimonials;

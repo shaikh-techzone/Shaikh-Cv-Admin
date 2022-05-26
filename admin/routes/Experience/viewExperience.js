@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 // Importing Schema Model
 const experience = require("../../schema/addExperience");
 const Userlogs = require("../../schema/addLog");
+const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/admin/viewexperience", async (req, res) => {
+router.get("/admin/viewexperience", requireAuth, async (req, res) => {
   // Toast Initialization
   const experience_toast = req.flash("experience_toast");
   let Experience;
