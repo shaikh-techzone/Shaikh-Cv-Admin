@@ -7,7 +7,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addexperience", requireAuth, (req, res) => {
+router.get("/addexperience", requireAuth, (req, res) => {
   // Toast Initialization
   const experience_toast = req.flash("experience_toast");
   res.render("Experience/addExperience", {
@@ -16,7 +16,7 @@ router.get("/admin/addexperience", requireAuth, (req, res) => {
   });
 });
 // Posting Data
-router.post("/admin/addexperience", async (req, res) => {
+router.post("/addexperience", async (req, res) => {
   let Position, Company, StartYear, EndYear, Desc;
   Position = req.body.Occupation;
   Company = req.body.Company;
@@ -32,7 +32,7 @@ router.post("/admin/addexperience", async (req, res) => {
     Desc,
   });
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Experience Added",
   });
   await Experience.save()
@@ -45,7 +45,7 @@ router.post("/admin/addexperience", async (req, res) => {
       req.flash("experience_toast", experience_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/admin/addexperience");
+      res.redirect("/addexperience");
     })
     .catch((err) => {
       // Failed Toast

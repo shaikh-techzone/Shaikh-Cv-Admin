@@ -17,23 +17,23 @@ const createToken = (id) => {
 //   res.render("welcome", { title: "Welcome" });
 // });
 
-router.get("/admin/login", (req, res) => {
+router.get("/login", (req, res) => {
   const login_toast = req.flash("login_toast");
   res.render("Login/login", { title: "Login", login_toast });
 });
 
-router.post("/admin/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   let { email, password } = req.body;
   let user;
   user = await User.findOne({ email });
-  console.log(user);
+  // console.log(user);
   if (user.Email === email) {
     const auth = await bcrypt.compare(password, user.Password);
     if (auth) {
       // return console.log("logged In");
       const token = createToken(user._id);
       res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-      res.redirect("/admin/home");
+      res.redirect("/home");
     } else {
       // Failed Toast
       login_toast = {
@@ -41,7 +41,7 @@ router.post("/admin/login", async (req, res) => {
         message: "Incorrect Credentials",
       };
       req.flash("login_toast", login_toast);
-      res.redirect("/admin/login");
+      res.redirect("/login");
     }
   } else {
     // Failed Toast
@@ -50,7 +50,7 @@ router.post("/admin/login", async (req, res) => {
       message: "Incorrect Credentials",
     };
     req.flash("login_toast", login_toast);
-    res.redirect("/admin/login");
+    res.redirect("/login");
   }
 });
 

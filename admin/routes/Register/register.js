@@ -13,7 +13,7 @@ const createToken = (id) => {
   });
 };
 
-router.get("/admin/register", async (req, res) => {
+router.get("/register", async (req, res) => {
   const register_toast = req.flash("register_toast");
   let userrole;
   await User.findOne({ Role: "Owner" })
@@ -32,7 +32,7 @@ router.get("/admin/register", async (req, res) => {
 });
 
 router.post(
-  "/admin/register",
+  "/register",
   // Validating email and password
   [check("email").isEmail(), check("password").isLength({ min: 8 })],
   async (req, res) => {
@@ -50,7 +50,7 @@ router.post(
         message: "Please Enter correct email and password atleast 8 digit",
       };
       req.flash("register_toast", register_toast);
-      res.redirect("/admin/register");
+      res.redirect("/register");
     } else {
       // Saving User to DB
       const userDetail = new User({
@@ -67,7 +67,7 @@ router.post(
           res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
           // res.json({ user: owner._id });
           console.log("SuccessFully");
-          res.redirect("/admin/home");
+          res.redirect("/home");
         })
         .catch((err) => {
           console.log(err);

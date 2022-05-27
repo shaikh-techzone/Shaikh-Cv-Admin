@@ -13,16 +13,8 @@
       <td><%= services.ServiceName %></td>
       <td><%= services.ServiceDesc %></td>
       <td>
-        <a
-          href="/admin/viewservices/delete/<%= services._id %>"
-          class="btn btn-outline-danger mx-3"
-          ><i class="fa-solid fa-trash"></i
-        ></a>
-        <a
-          href="/admin/viewservices/edit/<%= services._id %>"
-          class="btn btn-outline-info mx-3"
-          ><i class="fa-solid fa-pen-to-square"></i
-        ></a>
+        <a href="/viewservices/delete/<%= services._id %>" class="btn btn-outline-danger mx-3"><i class="fa-solid fa-trash"></i></a>
+        <a href="/viewservices/edit/<%= services._id %>" class="btn btn-outline-info mx-3"><i class="fa-solid fa-pen-to-square"></i></a>
       </td>
     </tr>
     <%})%>

@@ -8,7 +8,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/admin/vieweducation", requireAuth, async (req, res) => {
+router.get("/vieweducation", requireAuth, async (req, res) => {
   // Toast Initialization
   const education_toast = req.flash("education_toast");
   let Education;
@@ -27,11 +27,11 @@ router.get("/admin/vieweducation", requireAuth, async (req, res) => {
   });
 });
 // Deleting Education
-router.get("/admin/vieweducation/:id", async (req, res) => {
+router.get("/vieweducation/:id", async (req, res) => {
   let id;
   id = req.params.id;
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Education Deleted",
   });
   education.findByIdAndDelete(id, async (err) => {
@@ -51,7 +51,7 @@ router.get("/admin/vieweducation/:id", async (req, res) => {
       };
       req.flash("education_toast", education_toast);
       await Logs.save();
-      res.redirect("/admin/vieweducation");
+      res.redirect("/vieweducation");
     }
   });
 });

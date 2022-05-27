@@ -19,16 +19,8 @@
       <td><%= experience.EndYear %></td>
       <td><%= experience.Desc %></td>
       <td>
-        <a
-          href="/admin/viewexperience/delete/<%= experience._id %>"
-          class="btn btn-outline-danger mx-3"
-          ><i class="fa-solid fa-trash"></i
-        ></a>
-        <a
-          href="/admin/viewexperience/edit/<%= experience._id %>"
-          class="btn btn-outline-info mx-3"
-          ><i class="fa-solid fa-pen-to-square"></i
-        ></a>
+        <a href="/viewexperience/delete/<%= experience._id %>" class="btn btn-outline-danger mx-3"><i class="fa-solid fa-trash"></i></a>
+        <a href="/viewexperience/edit/<%= experience._id %>" class="btn btn-outline-info mx-3"><i class="fa-solid fa-pen-to-square"></i></a>
       </td>
     </tr>
     <%})%>

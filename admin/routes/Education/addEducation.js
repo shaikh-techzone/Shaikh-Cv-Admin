@@ -7,7 +7,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addeducation", requireAuth, (req, res) => {
+router.get("/addeducation", requireAuth, (req, res) => {
   // Toast Initialization
   const education_toast = req.flash("education_toast");
   res.render("Education/addEducation", {
@@ -16,7 +16,7 @@ router.get("/admin/addeducation", requireAuth, (req, res) => {
   });
 });
 // Posting Data
-router.post("/admin/addeducation", async (req, res) => {
+router.post("/addeducation", async (req, res) => {
   let Name, Degree, From, Till, Subject, Grade;
   Name = req.body.InstituteName;
   Degree = req.body.Degree;
@@ -34,7 +34,7 @@ router.post("/admin/addeducation", async (req, res) => {
     Grade,
   });
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Education Added",
   });
   await Education.save()
@@ -47,7 +47,7 @@ router.post("/admin/addeducation", async (req, res) => {
       req.flash("education_toast", education_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/admin/addeducation");
+      res.redirect("/addeducation");
     })
     .catch((err) => {
       // Failed Toast

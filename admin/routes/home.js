@@ -8,7 +8,7 @@ const logs = require("../schema/addLog");
 const { requireAuth } = require("./auth");
 const router = express.Router();
 
-router.get("/admin/home", requireAuth, async (req, res) => {
+router.get("/home", requireAuth, async (req, res) => {
   let Services, noOfServices;
   await service
     .find()

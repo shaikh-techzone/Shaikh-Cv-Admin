@@ -8,7 +8,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/admin/viewservices", requireAuth, async (req, res) => {
+router.get("/viewservices", requireAuth, async (req, res) => {
   // Toast Initialization
   const service_toast = req.flash("service_toast");
 
@@ -29,11 +29,11 @@ router.get("/admin/viewservices", requireAuth, async (req, res) => {
 });
 
 // Deleting Services
-router.get("/admin/viewservices/delete/:id", async (req, res) => {
+router.get("/viewservices/delete/:id", async (req, res) => {
   let id;
   id = req.params.id;
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Service Deleted",
   });
   service.findByIdAndDelete(id, async (err) => {
@@ -53,12 +53,12 @@ router.get("/admin/viewservices/delete/:id", async (req, res) => {
       };
       req.flash("service_toast", service_toast);
       await Logs.save();
-      res.redirect("/admin/viewservices");
+      res.redirect("/viewservices");
     }
   });
 });
 // Finding Services by ID
-router.get("/admin/viewservices/edit/:id", async (req, res) => {
+router.get("/viewservices/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let Service;
@@ -74,12 +74,12 @@ router.get("/admin/viewservices/edit/:id", async (req, res) => {
   res.render("Services/updateServices", { title: "Edit Services", Service });
 });
 // Updating Services By Id
-router.post("/admin/viewservices/edit/:id", async (req, res) => {
+router.post("/viewservices/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let updateservice;
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Service Updated",
   });
   await service
@@ -96,7 +96,7 @@ router.post("/admin/viewservices/edit/:id", async (req, res) => {
       await Logs.save();
       updateservice = result;
       console.log("Updated");
-      res.redirect("/admin/viewservices");
+      res.redirect("/viewservices");
     })
     .catch((err) => {
       // Failed Toast

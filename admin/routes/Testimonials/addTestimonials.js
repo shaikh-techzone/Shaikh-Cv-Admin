@@ -7,7 +7,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addtestimonials", requireAuth, (req, res) => {
+router.get("/addtestimonials", requireAuth, (req, res) => {
   // Toast Initialization
   const testimonial_toast = req.flash("testimonial_toast");
   res.render("Testimonials/addTestimonials", {
@@ -16,7 +16,7 @@ router.get("/admin/addtestimonials", requireAuth, (req, res) => {
   });
 });
 // Posting Data
-router.post("/admin/addtestimonials", async (req, res) => {
+router.post("/addtestimonials", async (req, res) => {
   let Name, Profession, Desc;
   Name = req.body.ClientName;
   Profession = req.body.Profession;
@@ -28,7 +28,7 @@ router.post("/admin/addtestimonials", async (req, res) => {
     Desc,
   });
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Testimonial Added",
   });
   await Testimonials.save()
@@ -41,7 +41,7 @@ router.post("/admin/addtestimonials", async (req, res) => {
       req.flash("testimonial_toast", testimonial_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/admin/addtestimonials");
+      res.redirect("/addtestimonials");
     })
     .catch((err) => {
       // Failed Toast

@@ -8,7 +8,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/admin/viewtestimonials", requireAuth, async (req, res) => {
+router.get("/viewtestimonials", requireAuth, async (req, res) => {
   // Toast Initialization
   const testimonial_toast = req.flash("testimonial_toast");
   let Testimonials;
@@ -27,11 +27,11 @@ router.get("/admin/viewtestimonials", requireAuth, async (req, res) => {
   });
 });
 // Deleting Testimonials
-router.get("/admin/viewtestimonials/:id", async (req, res) => {
+router.get("/viewtestimonials/:id", async (req, res) => {
   let id;
   id = req.params.id;
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Testimonial Deleted",
   });
   testimonials.findByIdAndDelete(id, async (err) => {
@@ -51,7 +51,7 @@ router.get("/admin/viewtestimonials/:id", async (req, res) => {
       };
       req.flash("testimonial_toast", testimonial_toast);
       await Logs.save();
-      res.redirect("/admin/viewtestimonials");
+      res.redirect("/viewtestimonials");
     }
   });
 });

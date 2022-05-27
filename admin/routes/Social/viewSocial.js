@@ -8,7 +8,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View page
-router.get("/admin/viewsocial", requireAuth, async (req, res) => {
+router.get("/viewsocial", requireAuth, async (req, res) => {
   // Toast Initialization
   const viewsocial_toast = req.flash("viewsocial_toast");
   let Social;
@@ -28,11 +28,11 @@ router.get("/admin/viewsocial", requireAuth, async (req, res) => {
 });
 
 // Deleting Social
-router.get("/admin/viewsocial/delete/:id", async (req, res) => {
+router.get("/viewsocial/delete/:id", async (req, res) => {
   let id;
   id = req.params.id;
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Social Deleted",
   });
   social.findByIdAndDelete(id, async (err) => {
@@ -52,12 +52,12 @@ router.get("/admin/viewsocial/delete/:id", async (req, res) => {
       };
       req.flash("viewsocial_toast", viewsocial_toast);
       await Logs.save();
-      res.redirect("/admin/viewsocial");
+      res.redirect("/viewsocial");
     }
   });
 });
 // Finding Social by ID
-router.get("/admin/viewsocial/edit/:id", async (req, res) => {
+router.get("/viewsocial/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let Social;
@@ -73,12 +73,12 @@ router.get("/admin/viewsocial/edit/:id", async (req, res) => {
   res.render("Social/updateSocial", { title: "Edit Social", Social });
 });
 // Updating Social By Id
-router.post("/admin/viewsocial/edit/:id", async (req, res) => {
+router.post("/viewsocial/edit/:id", async (req, res) => {
   let id;
   id = req.params.id;
   let updatesocial;
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Social Updated",
   });
   await social
@@ -98,7 +98,7 @@ router.post("/admin/viewsocial/edit/:id", async (req, res) => {
       await Logs.save();
       updatesocial = result;
       console.log("Updated");
-      res.redirect("/admin/viewsocial");
+      res.redirect("/viewsocial");
     })
     .catch((err) => {
       // Failed Toast

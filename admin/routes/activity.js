@@ -4,7 +4,7 @@ const logs = require("../schema/addLog");
 const { requireAuth } = require("./auth");
 const router = express.Router();
 
-router.get("/admin/activity", requireAuth, async (req, res) => {
+router.get("/activity", requireAuth, async (req, res) => {
   let Logs;
   await logs
     .find()

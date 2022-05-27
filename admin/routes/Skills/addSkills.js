@@ -7,13 +7,13 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addskills", requireAuth, (req, res) => {
+router.get("/addskills", requireAuth, (req, res) => {
   // Toast Initialization
   const addskill_toast = req.flash("addskill_toast");
   res.render("Skills/addSkills", { title: "Add Skills", addskill_toast });
 });
 // Posting Data
-router.post("/admin/addskills", async (req, res) => {
+router.post("/addskills", async (req, res) => {
   let Name, Level;
   Name = req.body.SkillName;
   Level = req.body.SkillLevel;
@@ -23,7 +23,7 @@ router.post("/admin/addskills", async (req, res) => {
     Level,
   });
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Skill Added",
   });
   await Skills.save()
@@ -36,7 +36,7 @@ router.post("/admin/addskills", async (req, res) => {
       req.flash("addskill_toast", addskill_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/admin/addskills");
+      res.redirect("/addskills");
     })
     .catch((err) => {
       // Failed Toast

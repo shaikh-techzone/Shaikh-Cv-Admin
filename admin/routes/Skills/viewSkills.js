@@ -8,7 +8,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/admin/viewskills", requireAuth, async (req, res) => {
+router.get("/viewskills", requireAuth, async (req, res) => {
   // Toast Initialization
   const viewskill_toast = req.flash("viewskill_toast");
   let Skills;
@@ -27,11 +27,11 @@ router.get("/admin/viewskills", requireAuth, async (req, res) => {
   });
 });
 // Deleting Skills
-router.get("/admin/viewskills/:id", async (req, res) => {
+router.get("/viewskills/:id", async (req, res) => {
   let id;
   id = req.params.id;
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Skill Deleted",
   });
   skills.findByIdAndDelete(id, async (err) => {
@@ -51,7 +51,7 @@ router.get("/admin/viewskills/:id", async (req, res) => {
       };
       req.flash("viewskill_toast", viewskill_toast);
       await Logs.save();
-      res.redirect("/admin/viewskills");
+      res.redirect("/viewskills");
     }
   });
 });

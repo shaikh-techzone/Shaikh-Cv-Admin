@@ -7,13 +7,13 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addservices", requireAuth, (req, res) => {
+router.get("/addservices", requireAuth, (req, res) => {
   // Toast Initialization
   const service_toast = req.flash("service_toast");
   res.render("Services/addServices", { title: "Add Services", service_toast });
 });
 // Posting Data
-router.post("/admin/addservices", async (req, res) => {
+router.post("/addservices", async (req, res) => {
   let ServiceName, ServiceDesc;
   ServiceName = req.body.ServiceName;
   ServiceDesc = req.body.ServiceDesc;
@@ -23,7 +23,7 @@ router.post("/admin/addservices", async (req, res) => {
     ServiceDesc,
   });
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Service Added",
   });
   await Service.save()
@@ -36,7 +36,7 @@ router.post("/admin/addservices", async (req, res) => {
       req.flash("service_toast", service_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/admin/addservices");
+      res.redirect("/addservices");
     })
     .catch((err) => {
       // Failed Toast

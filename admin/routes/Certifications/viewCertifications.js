@@ -8,7 +8,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering View Page
-router.get("/admin/viewcertifications", requireAuth, async (req, res) => {
+router.get("/viewcertifications", requireAuth, async (req, res) => {
   // Toast Initialization
   const certificate_toast = req.flash("certificate_toast");
   let Certifications;
@@ -27,11 +27,11 @@ router.get("/admin/viewcertifications", requireAuth, async (req, res) => {
   });
 });
 // Deleting Certifications
-router.get("/admin/viewcertifications/:id", async (req, res) => {
+router.get("/viewcertifications/:id", async (req, res) => {
   let id;
   id = req.params.id;
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Certification Deleted",
   });
   certifications.findByIdAndDelete(id, async (err) => {
@@ -51,7 +51,7 @@ router.get("/admin/viewcertifications/:id", async (req, res) => {
       };
       req.flash("certificate_toast", certificate_toast);
       await Logs.save();
-      res.redirect("/admin/viewcertifications");
+      res.redirect("/viewcertifications");
     }
   });
 });

@@ -7,7 +7,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addbiodata", requireAuth, async (req, res) => {
+router.get("/addbiodata", requireAuth, async (req, res) => {
   // Toast Initialization
   const bio_toast = req.flash("bio_toast");
   let Biodata;
@@ -26,9 +26,9 @@ router.get("/admin/addbiodata", requireAuth, async (req, res) => {
   });
 });
 // Posting Data
-router.post("/admin/addbiodata", async (req, res) => {
+router.post("/addbiodata", async (req, res) => {
   let User, Action;
-  User = "Shaikh Admin";
+  User = "Shaikh Dev Inc.";
   let Name,
     Email,
     Address,
@@ -76,7 +76,7 @@ router.post("/admin/addbiodata", async (req, res) => {
       req.flash("bio_toast", bio_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/admin/addbiodata");
+      res.redirect("/addbiodata");
     })
     .catch((err) => {
       // Failed Toast

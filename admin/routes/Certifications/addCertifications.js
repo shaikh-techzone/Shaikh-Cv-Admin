@@ -7,7 +7,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addcertifications", requireAuth, (req, res) => {
+router.get("/addcertifications", requireAuth, (req, res) => {
   // Toast Initialization
   const certificate_toast = req.flash("certificate_toast");
   res.render("Certifications/addCertifications", {
@@ -16,7 +16,7 @@ router.get("/admin/addcertifications", requireAuth, (req, res) => {
   });
 });
 // Posting Data
-router.post("/admin/addcertifications", async (req, res) => {
+router.post("/addcertifications", async (req, res) => {
   let Name, Issuer, IssueYear, Desc;
   Name = req.body.CertificationName;
   Issuer = req.body.Issuer;
@@ -30,7 +30,7 @@ router.post("/admin/addcertifications", async (req, res) => {
     Desc,
   });
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Certification Added",
   });
   await Certifications.save()
@@ -43,7 +43,7 @@ router.post("/admin/addcertifications", async (req, res) => {
       req.flash("certificate_toast", certificate_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/admin/addcertifications");
+      res.redirect("/addcertifications");
     })
     .catch((err) => {
       // Failed Toast

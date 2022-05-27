@@ -7,7 +7,7 @@ const { requireAuth } = require("../auth");
 // Creating Router
 const router = express.Router();
 // Rendering Main Page
-router.get("/admin/addsocial", requireAuth, async (req, res) => {
+router.get("/addsocial", requireAuth, async (req, res) => {
   // Toast Initialization
   const social_toast = req.flash("social_toast");
   let Social;
@@ -22,7 +22,7 @@ router.get("/admin/addsocial", requireAuth, async (req, res) => {
   res.render("Social/addSocial", { title: "Add Social", Social, social_toast });
 });
 // Posting Data
-router.post("/admin/addsocial", async (req, res) => {
+router.post("/addsocial", async (req, res) => {
   let Facebook, Instagram, LinkedIn, Github;
   Facebook = req.body.Facebook;
   Instagram = req.body.Instagram;
@@ -36,7 +36,7 @@ router.post("/admin/addsocial", async (req, res) => {
     Github,
   });
   const Logs = new Userlogs({
-    User: "Shaikh Admin",
+    User: "Shaikh Dev Inc.",
     Action: "Social Added",
   });
   await Social.save()
@@ -49,7 +49,7 @@ router.post("/admin/addsocial", async (req, res) => {
       req.flash("social_toast", social_toast);
       await Logs.save();
       console.log("SuccessFully Saved");
-      res.redirect("/admin/addsocial");
+      res.redirect("/addsocial");
     })
     .catch((err) => {
       // Failed Toast
